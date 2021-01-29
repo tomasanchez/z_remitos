@@ -1,0 +1,16 @@
+{
+  "generator-easy-ui5": {
+    "projectname": "Remitos",
+    "namespace": "com.profertil",
+    "platform": "SAP Cloud Platform Launchpad",
+    "viewtype": "XML",
+    "viewname": "App",
+    "ui5libs": "Content delivery network (SAPUI5)",
+    "newdir": true,
+    "namespaceURI": "com/profertil",
+    "uimodules": [
+      "uimodule"
+    ],
+    "setupCompleted": true
+  }
+}
