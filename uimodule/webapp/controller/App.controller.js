@@ -1,6 +1,6 @@
 sap.ui.define([
   "com/profertil/Remitos/controller/BaseController",
-  "sap/ui/model/json/JSONModel"
+  "sap/ui/model/json/JSONModel",
 ], function(Controller, JSONModel) {
   "use strict";
 

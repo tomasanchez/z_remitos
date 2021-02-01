@@ -1,12 +1,10 @@
- <mvc:View controllerName="com.profertil.Remitos.controller.App"
+ <mvc:View 
+  controllerName="com.profertil.Remitos.controller.App"
   displayBlock="true"
   xmlns="sap.m"
   xmlns:mvc="sap.ui.core.mvc">
-  <App id="idAppControl" >
-    <pages>
-      <Page id="listPage" title="{i18n>title}">
-        <content></content>
-      </Page>
-    </pages>
-  </App>
+	<App
+		id="app"
+		busy="{appView>/busy}"
+		busyIndicatorDelay="{appView>/delay}"/>
 </mvc:View>
