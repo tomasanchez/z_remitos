@@ -80,16 +80,16 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "viewPath": "com.profertil.Remitos.view",
-        "controlId": "idAppControl",
+        "controlId": "app",
         "controlAggregation": "pages",
         "async": true
       },
       "routes": [
         {
-          "name": "RouteApp",
-          "pattern": "RouteApp",
+          "name": "remitos",
+          "pattern": "",
           "target": [
-            "TargetApp"
+            "remitos"
           ]
         }
       ],
@@ -99,7 +99,13 @@
           "viewLevel": 1,
           "viewId": "idAppControl",
           "viewName": "App"
-        }
+        },
+        	"remitos": {
+					"viewName": "Remitos",
+					"viewId": "remitosView",
+					"viewLevel": 1,
+					"title": "{i18n>remitosViewTitle}"
+				}
       }
     }
   },

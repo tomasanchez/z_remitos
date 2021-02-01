@@ -1,0 +1,48 @@
+<mvc:View
+	id="remitosView"
+	height="100%"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	xmlns:semantic="sap.f.semantic"
+	controllerName="com.profertil.Remitos.controller.Remitos">
+
+	<semantic:SemanticPage
+		id="mySemanticPage"
+		headerPinnable="true"
+		toggleHeaderOnTitleClick="true"
+		preserveHeaderStateOnScroll="false"
+		titleAreaShrinkRatio="1:1.6:1.6"
+		showFooter="{/showFooter}">
+
+		<!-- Title Heading-->
+		<semantic:titleHeading>
+			<Title text="hello" />
+		</semantic:titleHeading>
+
+		<!-- TitleExpanded content-->
+		<semantic:titleSnappedContent>
+			<Text text="world!"/>
+		</semantic:titleSnappedContent>
+
+		<!-- TitleSnapped content-->
+		<semantic:titleExpandedContent>
+			<Text text="hello world"/>
+		</semantic:titleExpandedContent>
+
+		<!-- Header Content -->
+		<semantic:headerContent>
+		</semantic:headerContent>
+
+		<!-- Content -->
+		<semantic:content>
+	
+		</semantic:content>
+
+		<semantic:titleMainAction>
+			<semantic:TitleMainAction id="editAction" text="Edit" press="onEdit"/>
+		</semantic:titleMainAction>
+
+	</semantic:SemanticPage>
+
+</mvc:View>
