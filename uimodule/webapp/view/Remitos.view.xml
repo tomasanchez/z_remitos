@@ -1,33 +1,34 @@
-<mvc:View
-	id="remitosView"
-	height="100%"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.m"
-	xmlns:layout="sap.ui.layout"
-	xmlns:semantic="sap.f.semantic"
-	controllerName="com.profertil.Remitos.controller.Remitos">
+<mvc:View 
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m" 
+    xmlns:layout="sap.ui.layout"
+    xmlns:semantic="sap.f.semantic"
+    id="remitosView" 
+    height="100%" 
+    controllerName="com.profertil.Remitos.controller.Remitos">
 
-	<semantic:SemanticPage
-		id="mySemanticPage"
-		headerPinnable="true"
-		toggleHeaderOnTitleClick="true"
-		preserveHeaderStateOnScroll="false"
-		titleAreaShrinkRatio="1:1.6:1.6"
-		showFooter="{/showFooter}">
+	<semantic:SemanticPage 
+    id="mySemanticPage" 
+    headerPinnable="false" 
+    toggleHeaderOnTitleClick="true" 
+    preserveHeaderStateOnScroll="false" 
+    titleAreaShrinkRatio="1:1.6:1.6" 
+    showFooter="{/showFooter}" 
+    class="sapUiNoContentPadding">
 
 		<!-- Title Heading-->
 		<semantic:titleHeading>
-			<Title text="hello" />
+			<Title id="headerTitle" text="{i18n>remitosTitle}"/>
 		</semantic:titleHeading>
 
 		<!-- TitleExpanded content-->
 		<semantic:titleSnappedContent>
-			<Text text="world!"/>
+			<Text id="snappedTitleText" text="{i18n>remitosTitle}"/>
 		</semantic:titleSnappedContent>
 
 		<!-- TitleSnapped content-->
 		<semantic:titleExpandedContent>
-			<Text text="hello world"/>
+			<Text id="snappedTitle" text="{i18n>remitosTitle}"/>
 		</semantic:titleExpandedContent>
 
 		<!-- Header Content -->
@@ -36,12 +37,20 @@
 
 		<!-- Content -->
 		<semantic:content>
-	
+      <VBox id="contentContainer" fitContainer="true" alignContent="Center" alignItems="Center" class="sapUiNoContentPadding">
+      <items>
+          <sap.ui.comp.smarttable:SmartTable xmlns:sap.ui.comp.smarttable="sap.ui.comp.smarttable" width="100%" direction="Column" fitContainer="true" tableType="ResponsiveTable" header="Smart Table" enableAutoBinding="true" id="RemitosSet" smartFilterId="filterbar" useVariantManagement="false">
+              <sap.ui.comp.smarttable:items>
+                  <sap.ui.comp.smartfilterbar:SmartFilterBar xmlns:sap.ui.comp.smartfilterbar="sap.ui.comp.smartfilterbar" class="sapContrastPlus" hSpacing="0" id="filterBar">
+                      <sap.ui.comp.smartfilterbar:controlConfiguration>
+                          <sap.ui.comp.smartfilterbar:ControlConfiguration id="configuration0"/>
+                      </sap.ui.comp.smartfilterbar:controlConfiguration>
+                  </sap.ui.comp.smartfilterbar:SmartFilterBar>
+              </sap.ui.comp.smarttable:items>
+          </sap.ui.comp.smarttable:SmartTable>
+      </items>
+      </VBox>
 		</semantic:content>
-
-		<semantic:titleMainAction>
-			<semantic:TitleMainAction id="editAction" text="Edit" press="onEdit"/>
-		</semantic:titleMainAction>
 
 	</semantic:SemanticPage>
 

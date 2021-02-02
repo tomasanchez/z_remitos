@@ -33,8 +33,9 @@ sap.ui.define([
 			oModel.metadataLoaded().
 				then(fnSetAppNotBusy);
 		  oModel.attachMetadataFailed(fnSetAppNotBusy);
+      } else {
+        fnSetAppNotBusy();
       }
-
 
 			// apply content density mode to root view
 			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
