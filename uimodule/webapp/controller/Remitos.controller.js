@@ -62,7 +62,20 @@ sap.ui.define([
 				intent: "#Remitos-display"
 			}, true);
 
-		},
+    },
+
+    onPress: function (oEvent) {
+      if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService) {
+        var item = oEvent.getParameter("listItem").getBindingContext().getProperty("item");
+        sap.ushell.Container.getService("CrossApplicationNavigation").toExternal({
+          target: {
+            shellHash: "DocumentosRel-display?&/Documento/ENT," + item
+          }
+        });
+      }
+    }
+
+
 
   });
 

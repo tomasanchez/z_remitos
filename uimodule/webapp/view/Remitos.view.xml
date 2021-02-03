@@ -1,20 +1,16 @@
 <mvc:View 
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m" 
-    xmlns:layout="sap.ui.layout"
-    xmlns:semantic="sap.f.semantic"
-    id="remitosView" 
-    height="100%" 
-    controllerName="com.profertil.Remitos.controller.Remitos">
+  xmlns:mvc="sap.ui.core.mvc" 
+  xmlns="sap.m" 
+  xmlns:layout="sap.ui.layout" 
+  xmlns:semantic="sap.f.semantic" 
+  xmlns:fb="sap.ui.comp.filterbar"
+  xmlns:table="sap.ui.table" 
+  id="remitosView" 
+  height="100%" 
+  xmlns:core="sap.ui.core"
+  controllerName="com.profertil.Remitos.controller.Remitos">
 
-	<semantic:SemanticPage 
-    id="mySemanticPage" 
-    headerPinnable="false" 
-    toggleHeaderOnTitleClick="true" 
-    preserveHeaderStateOnScroll="false" 
-    titleAreaShrinkRatio="1:1.6:1.6" 
-    showFooter="{/showFooter}" 
-    class="sapUiNoContentPadding">
+	<semantic:SemanticPage id="mySemanticPage" headerPinnable="false" toggleHeaderOnTitleClick="true" preserveHeaderStateOnScroll="false" titleAreaShrinkRatio="1:1.6:1.6" showFooter="{/showFooter}" class="sapUiNoContentPadding">
 
 		<!-- Title Heading-->
 		<semantic:titleHeading>
@@ -33,13 +29,42 @@
 
 		<!-- Header Content -->
 		<semantic:headerContent>
+    			<!-- Filter Bar -->
+			<fb:FilterBar id="filterBar" class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiNoMargin" reset="onReset"
+				search="onSearch" showGoOnFB="false" showRestoreButton="false" showClearButton="false" useToolbar="false" showFilterConfiguration="false">
+				<fb:filterGroupItems>
+
+          					<fb:FilterGroupItem groupName="__$INTERNAL$" name="fecha" label="Fecha" partOfCurrentVariant="true"
+						visibleInFilterBar="true" mandatory="false" id="filter0">
+						<fb:control>
+            <DateRangeSelection id="slDate" placeholder="Seleccione un rango de fechas"  valueState="None" change=".onChangeValidation"
+										valueStateText="{i18n>requiredField}"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+
+					<fb:FilterGroupItem groupName="__$INTERNAL$" name="centro" label="Centro" partOfCurrentVariant="true"
+						visibleInFilterBar="true" mandatory="false" id="filter1">
+						<fb:control>
+							<ComboBox id="kostlCB" showSecondaryValues="true" placeholder="Seleccione un centro de costo" change=".onSelection">
+							</ComboBox>
+						</fb:control>
+					</fb:FilterGroupItem>
+
+          	<fb:FilterGroupItem groupName="__$INTERNAL$" name="acuerdos" label="Acuerdo" partOfCurrentVariant="true"
+						visibleInFilterBar="true" mandatory="false" id="filter2">
+						<fb:control>
+							<Input id="acuerdoInput" placeholder="Ingrese acuerdo"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>
+			</fb:FilterBar>
 		</semantic:headerContent>
 
 		<!-- Content -->
 		<semantic:content>
       <VBox id="contentContainer" fitContainer="true" alignContent="Center" alignItems="Center" class="sapUiNoContentPadding">
       <items>
-          <sap.ui.comp.smarttable:SmartTable xmlns:sap.ui.comp.smarttable="sap.ui.comp.smarttable" width="100%" direction="Column" fitContainer="true" tableType="ResponsiveTable" header="Smart Table" enableAutoBinding="true" id="RemitosSet" smartFilterId="filterbar" useVariantManagement="false">
+          <!-- <sap.ui.comp.smarttable:SmartTable xmlns:sap.ui.comp.smarttable="sap.ui.comp.smarttable" width="100%" direction="Column" fitContainer="true" tableType="ResponsiveTable" header="Smart Table" enableAutoBinding="true" id="RemitosSet" smartFilterId="filterbar" useVariantManagement="false">
               <sap.ui.comp.smarttable:items>
                   <sap.ui.comp.smartfilterbar:SmartFilterBar xmlns:sap.ui.comp.smartfilterbar="sap.ui.comp.smartfilterbar" class="sapContrastPlus" hSpacing="0" id="filterBar">
                       <sap.ui.comp.smartfilterbar:controlConfiguration>
@@ -47,7 +72,99 @@
                       </sap.ui.comp.smartfilterbar:controlConfiguration>
                   </sap.ui.comp.smartfilterbar:SmartFilterBar>
               </sap.ui.comp.smarttable:items>
-          </sap.ui.comp.smarttable:SmartTable>
+          </sap.ui.comp.smarttable:SmartTable> -->
+        <table:Table id="table" selectionMode="None" rows="{/ProductCollection}" visibleRowCount="15" sort="sortDeliveryDate" ariaLabelledBy="title">
+				<table:extension>
+					<OverflowToolbar id="overflowToolbar">
+						<Title id="title" text="Remitos"/>
+						<ToolbarSpacer id="tbSpacer"/>
+						<Button id="sortButton" icon="sap-icon://sort" tooltip="Sort Categories in addition to current sorting" press="sortCategories" type="Transparent"/>
+						<Button id="clearButton" icon="sap-icon://decline" tooltip="Clear all sortings" press="clearAllSortings" type="Transparent"/>
+            <Button id="settingsButton" icon="sap-icon://settings" tooltip="Clear all sortings" press="clearAllSortings" type="Transparent"/>
+            <Button id="excelButton" icon="sap-icon://excel-attachment" tooltip="Clear all sortings" press="clearAllSortings" type="Transparent"/>
+					</OverflowToolbar>
+				</table:extension>
+				<table:columns>
+					<table:Column id="name" sortProperty="Name">
+						<Label text="Fecha"/>
+						<table:template>
+							<Text text="{Fecha}" wrapping="false"/>
+						</table:template>
+					</table:Column>
+					<table:Column id="categories" showSortMenuEntry="false" sortProperty="Category">
+						<Label text="Remito"/>
+						<table:template>
+							<Text text="{Remito}" wrapping="false"/>
+						</table:template>
+					</table:Column>
+					<table:Column>
+						<Label text="Centro"/>
+						<table:template>
+							<Text text="{Kostl}"/>
+						</table:template>
+					</table:Column>
+          	<table:Column>
+						<Label text="Negocio"/>
+						<table:template>
+							<Text text="{Negocio}"/>
+						</table:template>
+					</table:Column>
+                    	<table:Column>
+						<Label text="Cupo"/>
+						<table:template>
+							<Text text="{Cupo}"/>
+						</table:template>
+					</table:Column>
+                    	<table:Column>
+						<Label text="Denominacion"/>
+						<table:template>
+							<Text text="{Denominacion}"/>
+						</table:template>
+					</table:Column>
+                    	<table:Column>
+						<Label text="Composicion Quimica"/>
+						<table:template>
+							<Text text="{Quimica}"/>
+						</table:template>
+					</table:Column>
+                    	<table:Column>
+						<Label text="Precio"/>
+						<table:template>
+							<Text text="{Precio}"/>
+						</table:template>
+					</table:Column>
+                    	<table:Column>
+						<Label text="TN"/>
+						<table:template>
+							<Text text="{Tn}"/>
+						</table:template>
+					</table:Column>
+                    	<table:Column>
+						<Label text="Chofer"/>
+						<table:template>
+							<Text text="{Chofer}"/>
+						</table:template>
+					</table:Column>
+                    	<table:Column>
+						<Label text="Incoterms 1"/>
+						<table:template>
+							<Text text="{Inco}"/>
+						</table:template>
+					</table:Column>
+                    	<table:Column>
+						<Label text="Destinatario"/>
+						<table:template>
+							<Text text="{Destinatario}"/>
+						</table:template>
+					</table:Column>
+                    	<table:Column>
+						<Label text="Carta de Prod"/>
+						<table:template>
+							<Text text="{Carta}"/>
+						</table:template>
+					</table:Column>
+				</table:columns>
+			</table:Table>
       </items>
       </VBox>
 		</semantic:content>

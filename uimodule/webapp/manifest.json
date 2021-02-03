@@ -16,10 +16,10 @@
             "parameters": {},
             "additionalParameters": "allowed"
           },
-          "semanticObject": "uimodule",
+          "semanticObject": "Remitos",
           "action": "display",
           "title": "Remitos",
-          "icon": "sap-icon://add"
+          "icon": "sap-icon://documents"
         }
       }
     }
