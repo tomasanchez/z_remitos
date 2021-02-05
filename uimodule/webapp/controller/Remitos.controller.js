@@ -35,12 +35,6 @@ sap.ui.define([
 
 			// Model used to manipulate control states
 			oViewModel = new JSONModel({
-				remitosTableTitle: this.getResourceBundle().getText("remitosTableTitle"),
-				saveAsTileTitle: this.getResourceBundle().getText("saveAsTileTitle", this.getResourceBundle().getText("remitosViewTitle")),
-				shareOnJamTitle: this.getResourceBundle().getText("remitosTitle"),
-				shareSendEmailSubject: this.getResourceBundle().getText("shareSendEmailremitosSubject"),
-				shareSendEmailMessage: this.getResourceBundle().getText("shareSendEmailremitosMessage", [location.href]),
-				tableNoDataText: this.getResourceBundle().getText("tableNoDataText"),
 				showStatus: true,
 				tableBusyDelay: 0,
 			});
@@ -69,7 +63,7 @@ sap.ui.define([
         var item = oEvent.getParameter("listItem").getBindingContext().getProperty("item");
         sap.ushell.Container.getService("CrossApplicationNavigation").toExternal({
           target: {
-            shellHash: "DocumentosRel-display?&/Documento/ENT," + item
+            shellHash: "DocumentosRel-display?&/Documento/REM," + item
           }
         });
       }

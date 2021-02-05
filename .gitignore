@@ -9,3 +9,6 @@ deployer/resources/
 Makefile*
 mta-*
 approuter/*/webapp/
+
+# auto generated wildcard
+uimodule/.env1

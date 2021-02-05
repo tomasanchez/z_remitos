@@ -22,6 +22,16 @@
           "icon": "sap-icon://documents"
         }
       }
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "sap/opu/odata/sap/ZSV_REMITOS_SRV/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -46,7 +56,7 @@
       "viewName": "com.profertil.Remitos.view.App",
       "type": "XML",
       "async": true,
-      "id": "idAppControl"
+      "id": "app"
     },
     "dependencies": {
       "minUI5Version": "1.60.0",
@@ -66,6 +76,16 @@
         "settings": {
           "bundleName": "com.profertil.Remitos.i18n.i18n"
         }
+      },
+      "": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "defaultOperationMode": "Server",
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "preload": true
+        },
+        "dataSource": "mainService"
       }
     },
     "resources": {

@@ -27,7 +27,9 @@ server:
         debug: true
         port: 1091
         xsappJson: uimodule/webapp/xs-app.json
-        destinations: []
+        destinations:
+         - name: "DesarrolloCF"
+        url: "http://DesarrolloCF.dest"
 builder:
   customTasks:
     -  name: ui5-task-zipper

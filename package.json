@@ -1,6 +1,6 @@
 {
   "name": "Remitos",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "start": "ui5 serve --config=uimodule/ui5.yaml  --open flpSandbox.html",
     "build:ui": "run-s  build:uimodule",
@@ -36,5 +36,9 @@
       "ui5-middleware-cfdestination",
       "ui5-task-zipper"
     ]
+  },
+  "dependencies": {
+    "@sap/approuter": "^9.1.0",
+    "@sap/html5-repo-mock": "^2.0.1"
   }
 }
