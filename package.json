@@ -1,6 +1,6 @@
 {
   "name": "Remitos",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "start": "ui5 serve --config=uimodule/ui5.yaml  --open flpSandbox.html",
     "release": "standard-version",
