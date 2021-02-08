@@ -57,11 +57,11 @@ sap.ui.define([
 		 */
     onPress: function (oEvent) {
       if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService) {
-        var sRemitoID = oEvent.getSource().getText();
+        var sEntrega = oEvent.getSource().getText();
         //var item = oEvent.getParameter("listItem").getBindingContext().getProperty("item");
         sap.ushell.Container.getService("CrossApplicationNavigation").toExternal({
           target: {
-            shellHash: "DocumentosRel-display?&/Documento/REM," + sRemitoID
+            shellHash: "DocumentosRel-display?&/Documento/REM," + sEntrega
           }
         });
       }
@@ -79,7 +79,7 @@ sap.ui.define([
 			var oComboBox = oSmtFilter.getControlByKey("Centro");
       var sWerks    = oComboBox.getSelectedKey();
       if (sWerks) {
-			  var newFilter = new Filter("Centro", FilterOperator.EQ, sWerks);
+			  var newFilter = new Filter("Werks", FilterOperator.EQ, sWerks);
 				mBindingParams.filters.push(newFilter);
 			}
 		}
