@@ -1,4 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout" xmlns:semantic="sap.f.semantic" xmlns:fb="sap.ui.comp.filterbar" xmlns:table="sap.ui.table" id="remitosView" height="100%" controllerName="com.profertil.Remitos.controller.Remitos">
+<mvc:View xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout" xmlns:semantic="sap.f.semantic" xmlns:fb="sap.ui.comp.filterbar" xmlns:table="sap.ui.table" id="remitosView" height="100%" controllerName="com.profertil.Remitos.controller.Remitos">
 
 	<semantic:SemanticPage id="mySemanticPage" headerPinnable="false" toggleHeaderOnTitleClick="true" preserveHeaderStateOnScroll="false" titleAreaShrinkRatio="1:1.6:1.6" showFooter="{/showFooter}" class="sapUiNoContentPadding">
 
@@ -20,51 +20,67 @@
 		<!-- Header Content -->
 		<semantic:headerContent>
     			<!-- Filter Bar -->
-			<fb:FilterBar id="filterBar" class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiNoMargin" reset="onReset" search="onSearch" showGoOnFB="false" showRestoreButton="false" showClearButton="false" useToolbar="false" showFilterConfiguration="false">
-				<fb:filterGroupItems>
+    <smartFilterBar:SmartFilterBar id="filterbar" persistencyKey="UniqueAndStablePersistencyKey" considerSelectionVariants="true" entitySet="RemitosSet" useDateRangeType="true" deltaVariantMode="false" showFilterConfiguration="false" showRestoreButton="false" showRestoreOnFB="true">
+      <smartFilterBar:controlConfiguration>
+        <smartFilterBar:ControlConfiguration id="Control" key="dateRange" index="1" label="Rango de Fecha" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
+          <smartFilterBar:customControl>
+            <DateRangeSelection id="slDate" valueState="None" change=".onChangeValidation" valueStateText="{i18n>requiredField}"/>
+          </smartFilterBar:customControl>
+        </smartFilterBar:ControlConfiguration>
 
-          					<fb:FilterGroupItem groupName="__$INTERNAL$" name="fecha" label="Fecha" partOfCurrentVariant="true" visibleInFilterBar="true" mandatory="false" id="filter0">
-						<fb:control>
-            <DateRangeSelection id="slDate" placeholder="Seleccione un rango de fechas" valueState="None" change=".onChangeValidation" valueStateText="{i18n>requiredField}"/>
-						</fb:control>
-					</fb:FilterGroupItem>
+        <smartFilterBar:ControlConfiguration id="control" key="werksComboBox" index="3" label="N° De Acuerdo" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
+          <smartFilterBar:customControl>
+            <ComboBox id="werksCB" showSecondaryValues="true" placeholder="Seleccione un centro de costo" change=".onSelection" items="{/CentrosSet}">
+              <core:ListItem id="werksCB-item" key="{Werks}" text="{Name1}" additionalText="{Werks}"/>
+            </ComboBox>
+          </smartFilterBar:customControl>
+        </smartFilterBar:ControlConfiguration>
 
-					<fb:FilterGroupItem groupName="__$INTERNAL$" name="centro" label="Centro" partOfCurrentVariant="true" visibleInFilterBar="true" mandatory="false" id="filter1">
-						<fb:control>
-							<ComboBox id="werksCB" showSecondaryValues="true" placeholder="Seleccione un centro de costo" change=".onSelection" items="{/CentrosSet}">
-                <core:ListItem id="werksCB-item" key="{Werks}" text="{Name1}" additionalText="{Werks}"/>
-							</ComboBox>
-						</fb:control>
-					</fb:FilterGroupItem>
+      </smartFilterBar:controlConfiguration>
+ 
+      <!-- layout data used to make the table growing but the filter bar fixed -->
+      <smartFilterBar:layoutData>
+        <FlexItemData xmlns="sap.m" id="Data" shrinkFactor="0"/>
+      </smartFilterBar:layoutData>
+              <!--<Label id="labelDate" text="Rango de Fecha de Factura" labelFor="picker1"/>
+                  <DateRangeSelection xmlns="sap.m" id="picker1"/>-->
+ 
+              <!--<Label id="labelCentro" text="Centro" labelFor="box0"/>
+                  <ComboBox xmlns="sap.m" id="box0">
+                  <items>
+                      <core:Item xmlns:core="sap.ui.core" key="item-1-key" text="Item 1 Text" id="item3"/>
+                      <core:Item xmlns:core="sap.ui.core" key="item-2-key" text="Item 2 Text" id="item4"/>
+                      </items>     
+                  </ComboBox>
 
-          	<fb:FilterGroupItem groupName="__$INTERNAL$" name="acuerdos" label="Acuerdo" partOfCurrentVariant="true" visibleInFilterBar="true" mandatory="false" id="filter2">
-						<fb:control>
-							<Input id="acuerdoInput" placeholder="Ingrese acuerdo"/>
-						</fb:control>
-					</fb:FilterGroupItem>
-				</fb:filterGroupItems>
-			</fb:FilterBar>
+
+ 
+                  <Label id="labelAcuerdo" text="Acuerdo" labelFor="input2"/>
+              <Input xmlns="sap.m" id="input2"/>-->
+ 
+              </smartFilterBar:SmartFilterBar>
 		</semantic:headerContent>
 
 		<!-- Content -->
 		<semantic:content>
       <VBox id="contentContainer" fitContainer="true" alignContent="Center" alignItems="Center" class="sapUiNoContentPadding">
-
+        <!-- Smart Table -->
         <sap.ui.comp.smarttable:SmartTable 
-            entitySet="RemitosSet"
-            xmlns:sap.ui.comp.smarttable="sap.ui.comp.smarttable"
-            width="100%" direction="Column" fitContainer="true" 
-            tableType="ResponsiveTable" 
-            header="{i18n>remitosTableTitle}" 
-            enableAutoBinding="true" 
-            id="RemitosSet" 
-            smartFilterId="filterbar" 
-            useVariantManagement="false"
-            initiallyVisibleFields="Fecha,Remito,Centro,Negocio"
-            justifyContent="Center"
-            alignContent="Center"
-            >
-          </sap.ui.comp.smarttable:SmartTable>
+        xmlns:sap.ui.comp.smarttable="sap.ui.comp.smarttable" 
+        entitySet="RemitosSet" 
+        width="100%" 
+        direction="Column" 
+        fitContainer="true" 
+        tableType="ResponsiveTable" 
+        header="{i18n>remitosTableTitle}" 
+        enableAutoBinding="true" 
+        id="RemitosSet"
+        smartFilterId="filterbar" 
+        useVariantManagement="false" 
+        initiallyVisibleFields="Fecha,Remito,Centro,Negocio" 
+        justifyContent="Center" 
+        alignContent="Center">
+        </sap.ui.comp.smarttable:SmartTable>
           
       </VBox>
 		</semantic:content>
