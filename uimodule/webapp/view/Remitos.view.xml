@@ -19,25 +19,26 @@
 
 		<!-- Header Content -->
 		<semantic:headerContent>
-    			<!-- Filter Bar -->
+    <!-- Filter Bar -->
     <smartFilterBar:SmartFilterBar id="filterbar" persistencyKey="UniqueAndStablePersistencyKey" considerSelectionVariants="true" entitySet="RemitosSet" useDateRangeType="true" deltaVariantMode="false" showFilterConfiguration="false" showRestoreButton="false" showRestoreOnFB="true">
+      <!-- Controls -->
       <smartFilterBar:controlConfiguration>
-        <smartFilterBar:ControlConfiguration id="Control" key="dateRange" index="1" label="Rango de Fecha" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
+        <!-- Date Control -->
+        <smartFilterBar:ControlConfiguration id="datePickerCtrl" key="Fecha" index="0" label="{i18n>dateDpLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
           <smartFilterBar:customControl>
             <DateRangeSelection id="slDate" valueState="None" change=".onChangeValidation" valueStateText="{i18n>requiredField}"/>
           </smartFilterBar:customControl>
         </smartFilterBar:ControlConfiguration>
-
-        <smartFilterBar:ControlConfiguration id="control" key="werksComboBox" index="3" label="N° De Acuerdo" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
+        <!-- Werks Control -->
+        <smartFilterBar:ControlConfiguration id="werksCtrl" key="Centro" index="3" label="{i18n>werksSlLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
           <smartFilterBar:customControl>
-            <ComboBox id="werksCB" showSecondaryValues="true" placeholder="Seleccione un centro de costo" change=".onSelection" items="{/CentrosSet}">
+            <ComboBox id="werksCB" showSecondaryValues="true" placeholder="Seleccione un centro de costo" items="{/CentrosSet}">
               <core:ListItem id="werksCB-item" key="{Werks}" text="{Name1}" additionalText="{Werks}"/>
             </ComboBox>
           </smartFilterBar:customControl>
         </smartFilterBar:ControlConfiguration>
-
       </smartFilterBar:controlConfiguration>
- 
+
       <!-- layout data used to make the table growing but the filter bar fixed -->
       <smartFilterBar:layoutData>
         <FlexItemData xmlns="sap.m" id="Data" shrinkFactor="0"/>
@@ -75,33 +76,62 @@
         header="{i18n>remitosTableTitle}" 
         enableAutoBinding="true" 
         id="RemitosSet"
-        smartFilterId="filterbar" 
+        smartFilterId="filterbar"
+        beforeRebindTable="onBeforeRebindTable"
         useVariantManagement="false" 
-        initiallyVisibleFields="Fecha,Remito,Centro,Negocio" 
+        initiallyVisibleFields="Fecha,Xblnr,Werks,WerksName1,AcNegocio,Entrega,Arktx,Kdmat" 
         justifyContent="Center" 
         alignContent="Center">
+          <!-- Custom Data Table -->
           <Table id="smartTableCustom">
             <columns>
-                <Column id="Fecha" width="15vw" hAlign="Begin">
-                  <customData>
-                    <core:CustomData key="p13nData"
-                      value='\{"columnKey": "Fecha", "maxLength": "10","columnIndex":"0", "isCurrency": false, "leadingProperty": "Fecha", "sortProperty": "Fecha", "type": "string"}' />
-                  </customData>
-                  <Label id="header-fecha-label" text="{/#Remitos/Fecha/@sap:label}" />
-                </Column>
-              <Column id="Remito" width="20vw" hAlign="Begin">
+                <!-- Custom Date Column -->
+              <Column id="FechaCol" width="100px" hAlign="Begin">
                 <customData>
-                  <core:CustomData key="p13nData"
-                    value='\{"columnKey": "Remito", "maxLength": "10","columnIndex":"1", "isCurrency": false, "leadingProperty": "Remito", "sortProperty": "Remito", "type": "string"}' />
+                  <core:CustomData 
+                    key="p13nData" 
+                    value='\{"columnKey": "Fecha", "maxLength": "10","columnIndex":"0", "isCurrency": false, "leadingProperty": "Fecha", "sortProperty": "Fecha", "type": "string"}' />
                 </customData>
-                <Label id="header-remito-label" text="{/#Remitos/Remito/@sap:label}" />
+                <Label id="header-fecha-label" text="{/#Remitos/Fecha/@sap:label}" />
+              </Column>
+              <!-- Custom Werks Column -->
+              <Column id="WerksCol" width="80px" hAlign="End">
+                <customData>
+                  <core:CustomData 
+                    key="p13nData" 
+                    value='\{"columnKey": "Werks", "maxLength": "4","columnIndex":"2", "isCurrency": false, "leadingProperty": "Werks", "sortProperty": "Werks", "type": "string"}' />
+                </customData>
+                <Label id="header-werks-label" text="{/#Remitos/Werks/@sap:label}" />
+              </Column>
+              <Column id="WerksNameCol" width="150px" hAlign="Begin">
+                <customData>
+                  <core:CustomData 
+                    key="p13nData" 
+                    value='\{"columnKey": "WerksName1", "maxLength": "30","columnIndex":"3", "isCurrency": false, "leadingProperty": "WerksName1", "sortProperty": "Werks", "type": "string"}' />
+                </customData>
+                <Label id="header-werksName-label" text="{/#Remitos/WerksName1/@sap:label}" />
+              </Column>
+              <!-- Custom XBRS Column -->
+              <Column id="EntregaCol" width="auto" hAlign="Begin">
+                <customData>
+                  <core:CustomData
+                    key="p13nData"
+                    value='\{"columnKey": "Entrega", "maxLength": "10","columnIndex":"5", "isCurrency": false, "leadingProperty": "Entrega", "sortProperty": "Entrega", "type": "string"}' />
+                </customData>
+                <Label id="header-entrega-label" text="{/#Remitos/Entrega/@sap:label}" />
               </Column>
             </columns>
             <items>
+            <!-- Custom Data Cells -->
               <ColumnListItem id="customDataColumnList">
                 <cells>
+                  <!-- Formatted Date = 'dd/mm/yyyy' -->
                   <Text id="Fecha-field" text="{path:'Fecha', formatter: '.formatter.dateFormat'}"/>
-                  <Link id="Remito-field" emphasized="true" text="{Remito}" press=".onPress"/>
+                  <!-- Custom Werks -->
+                  <ObjectIdentifier id="Werks-field" title="{Werks}" />
+                  <Text id="WerksName-field" text="{path: 'WerksName1', formatter:'.formatter.formatTitle'}"/>
+                  <!-- Hyperlink to Cross-Application -->
+                  <Link id="Entrega-field" emphasized="true" text="{Entrega}" press=".onPress"/>
                 </cells>
               </ColumnListItem>
             </items> 
