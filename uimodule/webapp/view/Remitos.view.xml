@@ -80,11 +80,34 @@
         initiallyVisibleFields="Fecha,Remito,Centro,Negocio" 
         justifyContent="Center" 
         alignContent="Center">
-        </sap.ui.comp.smarttable:SmartTable>
-          
+          <Table id="smartTableCustom">
+            <columns>
+                <Column id="Fecha" width="15vw" hAlign="Begin">
+                  <customData>
+                    <core:CustomData key="p13nData"
+                      value='\{"columnKey": "Fecha", "maxLength": "10","columnIndex":"0", "isCurrency": false, "leadingProperty": "Fecha", "sortProperty": "Fecha", "type": "string"}' />
+                  </customData>
+                  <Label id="header-fecha-label" text="{/#Remitos/Fecha/@sap:label}" />
+                </Column>
+              <Column id="Remito" width="20vw" hAlign="Begin">
+                <customData>
+                  <core:CustomData key="p13nData"
+                    value='\{"columnKey": "Remito", "maxLength": "10","columnIndex":"1", "isCurrency": false, "leadingProperty": "Remito", "sortProperty": "Remito", "type": "string"}' />
+                </customData>
+                <Label id="header-remito-label" text="{/#Remitos/Remito/@sap:label}" />
+              </Column>
+            </columns>
+            <items>
+              <ColumnListItem id="customDataColumnList">
+                <cells>
+                  <Text id="Fecha-field" text="{path:'Fecha', formatter: '.formatter.dateFormat'}"/>
+                  <Link id="Remito-field" emphasized="true" text="{Remito}" press=".onPress"/>
+                </cells>
+              </ColumnListItem>
+            </items> 
+          </Table>
+        </sap.ui.comp.smarttable:SmartTable>    
       </VBox>
 		</semantic:content>
-
 	</semantic:SemanticPage>
-
 </mvc:View>
