@@ -19,7 +19,12 @@
           "semanticObject": "Remitos",
           "action": "display",
           "title": "Remitos",
-          "icon": "sap-icon://documents"
+          "icon": "sap-icon://documents",
+          "indicatorDataSource": {
+            "dataSource": "",
+            "path": "dynamic_dest/DesarrolloCF/sap/opu/odata/sap/ZSV_RELATED_DOCS_SRV/RemitosSet/$count",
+            "refresh": 1000
+          }
         }
       }
     },
