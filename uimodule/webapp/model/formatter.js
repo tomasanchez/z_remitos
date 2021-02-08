@@ -3,7 +3,7 @@ sap.ui.define([], function () {
 	return {
 
     dateFormat: (sDate) =>{
-      return new Date(sDate.slice(0, 4), sDate.slice(4, 6), sDate.slice(6, 8)).toLocaleDateString();
+      return sDate? new Date(sDate.slice(0, 4), sDate.slice(4, 6), sDate.slice(6, 8)).toLocaleDateString() : "";
     }
 
   };
