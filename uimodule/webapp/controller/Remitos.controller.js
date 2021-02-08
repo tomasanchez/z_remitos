@@ -1,8 +1,10 @@
 sap.ui.define([
   "com/profertil/Remitos/controller/BaseController",
   "sap/ui/model/json/JSONModel",
+  "sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
   "../model/formatter",
-], function(Controller, JSONModel, formatter) {
+], function(Controller, JSONModel, Filter, FilterOperator, formatter) {
   "use strict";
   var oController;
 
@@ -63,9 +65,24 @@ sap.ui.define([
           }
         });
       }
-    }
+    },
+
+    /**
+		 * Custom Filters Addition
+		 * @function
+		 * @param {sap.ui.base.Event} oEvent the event of rebinding the table
+		 * @public
+		 */
+    onBeforeRebindTable: function (oEvent) {
+			var mBindingParams = oEvent.getParameter("bindingParams");
+			var oSmtFilter = this.getView().byId("filterbar");
+			var oComboBox = oSmtFilter.getControlByKey("Centro");
+      var sWerks    = oComboBox.getSelectedKey();
+      if (sWerks) {
+			  var newFilter = new Filter("Centro", FilterOperator.EQ, sWerks);
+				mBindingParams.filters.push(newFilter);
+			}
+		}
 
   });
-
-
 });
