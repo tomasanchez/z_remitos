@@ -18,11 +18,11 @@
           },
           "semanticObject": "Remitos",
           "action": "display",
-          "title": "Remitos",
+          "title": "Mis Entregas",
           "icon": "sap-icon://documents",
           "indicatorDataSource": {
             "dataSource": "",
-            "path": "dynamic_dest/DesarrolloCF/sap/opu/odata/sap/ZSV_RELATED_DOCS_SRV/RemitosSet/$count",
+            "path": "dynamic_dest/DesarrolloCF/sap/opu/odata/sap/ZSV_REMITOS_SRV/RemitosSet/$count",
             "refresh": 1000
           }
         }
