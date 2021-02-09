@@ -1,70 +1,72 @@
-<mvc:View xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout" xmlns:semantic="sap.f.semantic" xmlns:fb="sap.ui.comp.filterbar" xmlns:table="sap.ui.table" id="remitosView" height="100%" controllerName="com.profertil.Remitos.controller.Remitos">
-
-	<semantic:SemanticPage id="mySemanticPage" headerPinnable="false" toggleHeaderOnTitleClick="true" preserveHeaderStateOnScroll="false" titleAreaShrinkRatio="1:1.6:1.6" showFooter="{/showFooter}" class="sapUiNoContentPadding">
-
+<mvc:View 
+  xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
+  xmlns:core="sap.ui.core" 
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m" 
+  xmlns:layout="sap.ui.layout"
+  xmlns:semantic="sap.f.semantic" 
+  xmlns:fb="sap.ui.comp.filterbar" 
+  xmlns:table="sap.ui.table" 
+  id="remitosView" 
+  height="100%" 
+  controllerName="com.profertil.Remitos.controller.Remitos">
+	<semantic:SemanticPage 
+    id="mySemanticPage" 
+    headerPinnable="false" 
+    toggleHeaderOnTitleClick="true" 
+    preserveHeaderStateOnScroll="false"
+    titleAreaShrinkRatio="1:1.6:1.6" showFooter="{/showFooter}">
 		<!-- Title Heading-->
 		<semantic:titleHeading>
 			<Title id="headerTitle" text="{i18n>remitosTitle}"/>
 		</semantic:titleHeading>
-
 		<!-- TitleExpanded content-->
 		<semantic:titleSnappedContent>
-			<Text id="snappedTitleText" text="{i18n>remitosTitle}"/>
+			<Text id="snappedTitleText" text="{i18n>remitosSubTitle}"/>
 		</semantic:titleSnappedContent>
-
 		<!-- TitleSnapped content-->
 		<semantic:titleExpandedContent>
-			<Text id="snappedTitle" text="{i18n>remitosTitle}"/>
+			<Text id="snappedTitle" text="{i18n>remitosSubTitle}"/>
 		</semantic:titleExpandedContent>
-
 		<!-- Header Content -->
 		<semantic:headerContent>
-    <!-- Filter Bar -->
-    <smartFilterBar:SmartFilterBar id="filterbar" persistencyKey="UniqueAndStablePersistencyKey" considerSelectionVariants="true" entitySet="RemitosSet" useDateRangeType="true" deltaVariantMode="false" showFilterConfiguration="false" showRestoreButton="false" showRestoreOnFB="true">
-      <!-- Controls -->
-      <smartFilterBar:controlConfiguration>
-        <!-- Date Control -->
-        <smartFilterBar:ControlConfiguration id="datePickerCtrl" key="Fecha" index="0" label="{i18n>dateDpLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
-          <smartFilterBar:customControl>
-            <DateRangeSelection id="slDate" valueState="None" change=".onChangeValidation" valueStateText="{i18n>requiredField}"/>
-          </smartFilterBar:customControl>
-        </smartFilterBar:ControlConfiguration>
-        <!-- Werks Control -->
-        <smartFilterBar:ControlConfiguration id="werksCtrl" key="Centro" index="3" label="{i18n>werksSlLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
-          <smartFilterBar:customControl>
-            <ComboBox id="werksCB" showSecondaryValues="true" placeholder="Seleccione un centro de costo" items="{/CentrosSet}">
-              <core:ListItem id="werksCB-item" key="{Werks}" text="{Name1}" additionalText="{Werks}"/>
-            </ComboBox>
-          </smartFilterBar:customControl>
-        </smartFilterBar:ControlConfiguration>
-      </smartFilterBar:controlConfiguration>
-
+      <!-- Filter Bar -->
+      <smartFilterBar:SmartFilterBar 
+        id="filterbar" 
+        persistencyKey="UniqueAndStablePersistencyKey" 
+        considerSelectionVariants="true" 
+        entitySet="RemitosSet" useDateRangeType="true" 
+        deltaVariantMode="false" 
+        showFilterConfiguration="false" 
+        showRestoreButton="false"
+        class="sapUiResponsiveMargin"
+        showRestoreOnFB="true">
+        <!-- Controls -->
+        <smartFilterBar:controlConfiguration>
+          <!-- Date Control -->
+          <smartFilterBar:ControlConfiguration id="datePickerCtrl" key="Fecha" index="0" label="{i18n>dateDpLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
+            <smartFilterBar:customControl>
+              <DateRangeSelection id="slDate" valueState="None" change=".onChangeValidation" valueStateText="{i18n>requiredField}"/>
+            </smartFilterBar:customControl>
+          </smartFilterBar:ControlConfiguration>
+            <!-- Werks Control -->
+          <smartFilterBar:ControlConfiguration id="werksCtrl" key="Centro" index="3" label="{i18n>werksSlLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
+            <smartFilterBar:customControl>
+              <ComboBox id="werksCB" showSecondaryValues="true" placeholder="Seleccione un centro de costo" items="{/CentrosSet}">
+                <core:ListItem id="werksCB-item" key="{Werks}" text="{Name1}" additionalText="{Werks}"/>
+              </ComboBox>
+            </smartFilterBar:customControl>
+          </smartFilterBar:ControlConfiguration>
+        </smartFilterBar:controlConfiguration>
       <!-- layout data used to make the table growing but the filter bar fixed -->
-      <smartFilterBar:layoutData>
-        <FlexItemData xmlns="sap.m" id="Data" shrinkFactor="0"/>
-      </smartFilterBar:layoutData>
-              <!--<Label id="labelDate" text="Rango de Fecha de Factura" labelFor="picker1"/>
-                  <DateRangeSelection xmlns="sap.m" id="picker1"/>-->
- 
-              <!--<Label id="labelCentro" text="Centro" labelFor="box0"/>
-                  <ComboBox xmlns="sap.m" id="box0">
-                  <items>
-                      <core:Item xmlns:core="sap.ui.core" key="item-1-key" text="Item 1 Text" id="item3"/>
-                      <core:Item xmlns:core="sap.ui.core" key="item-2-key" text="Item 2 Text" id="item4"/>
-                      </items>     
-                  </ComboBox>
-
-
- 
-                  <Label id="labelAcuerdo" text="Acuerdo" labelFor="input2"/>
-              <Input xmlns="sap.m" id="input2"/>-->
- 
-              </smartFilterBar:SmartFilterBar>
+        <smartFilterBar:layoutData>
+          <FlexItemData xmlns="sap.m" id="Data" shrinkFactor="0"/>
+        </smartFilterBar:layoutData>
+      </smartFilterBar:SmartFilterBar>
 		</semantic:headerContent>
-
-		<!-- Content -->
+		<!-- Semantic Content -->
 		<semantic:content>
-      <VBox id="contentContainer" fitContainer="true" alignContent="Center" alignItems="Center" class="sapUiNoContentPadding">
+      <VBox id="contentContainer"  fitContainer="true" alignContent="Center" alignItems="Center" class="sapUiNoContentPadding">
         <!-- Smart Table -->
         <sap.ui.comp.smarttable:SmartTable 
         xmlns:sap.ui.comp.smarttable="sap.ui.comp.smarttable" 
@@ -77,13 +79,20 @@
         enableAutoBinding="true" 
         id="RemitosSet"
         smartFilterId="filterbar"
+        demandPopin="true"
+        ignoreFromPersonalisation="WerksName1,Bztxt"
+        ignoredFields="Posnr"
+        showFullScreenButton="true"
         beforeRebindTable="onBeforeRebindTable"
         useVariantManagement="false" 
-        initiallyVisibleFields="Fecha,Xblnr,Werks,WerksName1,AcNegocio,Entrega,Arktx,Kdmat" 
-        justifyContent="Center" 
+        initiallyVisibleFields="Fecha,Xblnr,Werks,AcNegocio,Entrega,Arktx,Kdmat" 
+        justifyContent="Center"
+        class="sapUiResponsiveContentPadding"
         alignContent="Center">
           <!-- Custom Data Table -->
-          <Table id="smartTableCustom">
+          <Table 
+            id="smartTableCustom"
+            sticky="ColumnHeaders,HeaderToolbar">
             <columns>
                 <!-- Custom Date Column -->
               <Column id="FechaCol" width="100px" hAlign="Begin">
@@ -95,30 +104,31 @@
                 <Label id="header-fecha-label" text="{/#Remitos/Fecha/@sap:label}" />
               </Column>
               <!-- Custom Werks Column -->
-              <Column id="WerksCol" width="80px" hAlign="End">
+              <Column id="WerksCol" width="120px" hAlign="End">
                 <customData>
                   <core:CustomData 
                     key="p13nData" 
-                    value='\{"columnKey": "Werks", "maxLength": "4","columnIndex":"2", "isCurrency": false, "leadingProperty": "Werks", "sortProperty": "Werks", "type": "string"}' />
+                    value='\{"columnKey": "Werks", "maxLength": "4","columnIndex":"2", "isCurrency": false, "leadingProperty": "Werks", "sortProperty":"Werks", "additionalProperty":"WerksName1", "type": "string"}' />
                 </customData>
                 <Label id="header-werks-label" text="{/#Remitos/Werks/@sap:label}" />
               </Column>
-              <Column id="WerksNameCol" width="150px" hAlign="Begin">
-                <customData>
-                  <core:CustomData 
-                    key="p13nData" 
-                    value='\{"columnKey": "WerksName1", "maxLength": "30","columnIndex":"3", "isCurrency": false, "leadingProperty": "WerksName1", "sortProperty": "Werks", "type": "string"}' />
-                </customData>
-                <Label id="header-werksName-label" text="{/#Remitos/WerksName1/@sap:label}" />
-              </Column>
               <!-- Custom XBRS Column -->
-              <Column id="EntregaCol" width="auto" hAlign="Begin">
+              <Column id="EntregaCol" width="100px" hAlign="Center">
                 <customData>
                   <core:CustomData
                     key="p13nData"
-                    value='\{"columnKey": "Entrega", "maxLength": "10","columnIndex":"5", "isCurrency": false, "leadingProperty": "Entrega", "sortProperty": "Entrega", "type": "string"}' />
+                    value='\{"columnKey": "Entrega", "maxLength": "10","columnIndex":"4", "isCurrency": false, "leadingProperty": "Entrega", "sortProperty": "Entrega", "type": "string"}' />
                 </customData>
                 <Label id="header-entrega-label" text="{/#Remitos/Entrega/@sap:label}" />
+              </Column>
+              <!-- Custom Bzirk -->
+              <Column id="Bzirk" width="150px" hAlign="Center">
+                <customData>
+                  <core:CustomData 
+                    key="p13nData" 
+                    value='\{"columnKey": "Bzirk", "maxLength": "6","columnIndex":"10", "isCurrency": false, "leadingProperty": "Bzirk", "sortProperty":"Bzirk", "additionalProperty":"Bztxt", "type": "string"}' />
+                </customData>
+                <Label id="header-bzrik-label" text="{/#Remitos/Bzirk/@sap:label}" />
               </Column>
             </columns>
             <items>
@@ -128,10 +138,11 @@
                   <!-- Formatted Date = 'dd/mm/yyyy' -->
                   <Text id="Fecha-field" text="{path:'Fecha', formatter: '.formatter.dateFormat'}"/>
                   <!-- Custom Werks -->
-                  <ObjectIdentifier id="Werks-field" title="{Werks}" />
-                  <Text id="WerksName-field" text="{path: 'WerksName1', formatter:'.formatter.formatTitle'}"/>
+                  <ObjectIdentifier id="Werks-field" title="{Werks}" text="{path: 'WerksName1', formatter:'.formatter.formatTitle'}"/>
                   <!-- Hyperlink to Cross-Application -->
                   <Link id="Entrega-field" emphasized="true" text="{Entrega}" press=".onPress"/>
+                  <!-- Custom Bzirk -->
+                  <Text id="Bzirk-field" text="{Bztxt} ({Bzirk})"/>
                 </cells>
               </ColumnListItem>
             </items> 
