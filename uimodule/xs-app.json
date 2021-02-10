@@ -8,6 +8,12 @@
     "destination": "DesarrolloCF"
     },
     {
+    "authenticationType": "none",
+    "csrfProtection": false,
+    "source": "^/sap/opu/odata/sap/ZSV_RELATED_DOCS_SRV/",
+    "destination": "DesarrolloCF"
+    },
+    {
       "source": "^(.*)",
       "target": "$1",
       "authenticationType": "xsuaa",

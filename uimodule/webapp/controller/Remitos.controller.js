@@ -2,11 +2,15 @@ sap.ui.define([
   "com/profertil/Remitos/controller/BaseController",
   "sap/ui/model/json/JSONModel",
   "sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator",
+  "sap/ui/model/FilterOperator",
+  "sap/m/MessageBox",
+  "sap/m/PDFViewer",
   "../model/formatter",
-], function(Controller, JSONModel, Filter, FilterOperator, formatter) {
+], function(Controller, JSONModel, Filter, FilterOperator, MessageBox, PDFViewer, formatter) {
   "use strict";
-  var oController;
+  // Bind this shortcut
+  var oController,
+      oDocumentsModel;
 
   return Controller.extend("com.profertil.Remitos.controller.Remitos", {
 
@@ -41,8 +45,12 @@ sap.ui.define([
 				title: this.getResourceBundle().getText("remitosViewTitle"),
 				icon: "sap-icon://table-view",
 				intent: "#Remitos-display"
-			}, true);
+      }, true);
+    },
 
+    onAfterRendering: () => {
+      // The Documents Model from where request print options
+      oDocumentsModel = oController.getModel("relatedDocs");
     },
 
     /* =========================================================== */
@@ -55,16 +63,52 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent the event of link press
 		 * @public
 		 */
-    onPress: function (oEvent) {
+    onDisplayEntrega: function (oEvent) {
+      // If shell
       if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService) {
+        // The id of 'Entrega'
         var sEntrega = oEvent.getSource().getText();
-        //var item = oEvent.getParameter("listItem").getBindingContext().getProperty("item");
+
+        //Cross app navigation service
         sap.ushell.Container.getService("CrossApplicationNavigation").toExternal({
           target: {
             shellHash: "DocumentosRel-display?&/Documento/REM," + sEntrega
           }
         });
       }
+    },
+
+    /**
+     * File downloader handler
+     * @function
+     * @param {sap.ui.base.Event} oEvent the press event on Xlbnr field
+     * @public
+     */
+    onDisplayXlbnr: (oEvent) => {
+      // The id of 'Xblnr'
+      var sXblnr = oEvent.getSource().getBindingContext().getObject().Entrega;
+
+      // The request Path
+       var sPath = `${oDocumentsModel.createKey("/PrinterSet", {
+            TipoDoc: "REM",
+            Documento: sXblnr
+          })}/$value`;
+
+      // The model from where to obtain the pdf
+      var oModel =new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZSV_RELATED_DOCS_SRV");
+
+      oModel.read(sPath, {
+          success: (oData, oResponse) => {
+            var oFile = oResponse.requestUri;
+            oFile ?
+              window.open(oFile)
+            : MessageBox.error(oController.readFromI18n("noFileMSG"));
+          },
+          error: () => {
+            // Server error throw error msg 2
+            MessageBox.error(oController.readFromI18n("noFileErrorMSG"));
+          }
+      });
     },
 
     /**

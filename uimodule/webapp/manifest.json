@@ -36,6 +36,14 @@
           "odataVersion": "2.0",
           "localUri": "localService/metadata.xml"
         }
+      },
+      "relatedDocuments": {
+        "uri": "/sap/opu/odata/sap/ZSV_RELATED_DOCS_SRV/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService//sap/opu/odata/sap/ZSV_RELATED_DOCS_SRV//metadata.xml"
+        }
       }
     }
   },
@@ -91,6 +99,16 @@
           "preload": true
         },
         "dataSource": "mainService"
+      },
+      "relatedDocs": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "defaultOperationMode": "Server",
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "preload": true
+        },
+        "dataSource": "relatedDocuments"
       }
     },
     "resources": {
@@ -125,12 +143,12 @@
           "viewId": "idAppControl",
           "viewName": "App"
         },
-        	"remitos": {
-					"viewName": "Remitos",
-					"viewId": "remitosView",
-					"viewLevel": 1,
-					"title": "{i18n>remitosViewTitle}"
-				}
+        "remitos": {
+          "viewName": "Remitos",
+          "viewId": "remitosView",
+          "viewLevel": 1,
+          "title": "{i18n>remitosViewTitle}"
+        }
       }
     }
   },
