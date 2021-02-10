@@ -8,8 +8,18 @@ sap.ui.define([], function () {
      * @param {string} sData the date to be formatted
      * @return {string} the formatted date dd/mm/yyyy
      */
-    dateFormat: (sDate) =>{
+    dateStringFormat: (sDate) =>{
       return sDate? new Date(sDate.slice(0, 4), sDate.slice(4, 6), sDate.slice(6, 8)).toLocaleDateString() : "";
+    },
+
+    /**
+     * Formats date to local date string
+     * @function
+     * @param {date} dDate the date to be formatted
+     * @return {string} the formatted to locale date string
+     */
+    dateFormat: (dDate) => {
+      return dDate ? dDate.toLocaleDateString() : "";
     },
 
     /**
