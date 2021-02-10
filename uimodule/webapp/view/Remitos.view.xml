@@ -35,7 +35,8 @@
         id="filterbar" 
         persistencyKey="UniqueAndStablePersistencyKey" 
         considerSelectionVariants="true" 
-        entitySet="RemitosSet" useDateRangeType="true" 
+        entitySet="RemitosSet"
+        useDateRangeType="true" 
         deltaVariantMode="false" 
         showFilterConfiguration="false" 
         showRestoreButton="false"
@@ -44,11 +45,7 @@
         <!-- Controls -->
         <smartFilterBar:controlConfiguration>
           <!-- Date Control -->
-          <smartFilterBar:ControlConfiguration id="datePickerCtrl" key="Fecha" index="0" label="{i18n>dateDpLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
-            <smartFilterBar:customControl>
-              <DateRangeSelection id="slDate" valueState="None" change=".onChangeValidation" valueStateText="{i18n>requiredField}"/>
-            </smartFilterBar:customControl>
-          </smartFilterBar:ControlConfiguration>
+          <smartFilterBar:ControlConfiguration id="Fecha" key="Fecha" index="0" groupId="_BASIC" conditionType="sap.ui.comp.config.condition.DateRangeType" visibleInAdvancedArea="true"/>
             <!-- Werks Control -->
           <smartFilterBar:ControlConfiguration id="werksCtrl" key="Centro" index="3" label="{i18n>werksSlLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
             <smartFilterBar:customControl>
@@ -94,8 +91,8 @@
             id="smartTableCustom"
             sticky="ColumnHeaders,HeaderToolbar">
             <columns>
-                <!-- Custom Date Column -->
-              <Column id="FechaCol" width="100px" hAlign="Begin">
+              <!-- Custom Date Column -->
+              <Column id="FechaCol" width="auto" hAlign="Begin">
                 <customData>
                   <core:CustomData 
                     key="p13nData" 
@@ -104,7 +101,7 @@
                 <Label id="header-fecha-label" text="{/#Remitos/Fecha/@sap:label}" />
               </Column>
               <!-- Custom Werks Column -->
-              <Column id="WerksCol" width="120px" hAlign="End">
+              <Column id="WerksCol" width="auto" hAlign="End">
                 <customData>
                   <core:CustomData 
                     key="p13nData" 
@@ -112,8 +109,17 @@
                 </customData>
                 <Label id="header-werks-label" text="{/#Remitos/Werks/@sap:label}" />
               </Column>
-              <!-- Custom XBRS Column -->
-              <Column id="EntregaCol" width="100px" hAlign="Center">
+              <!-- Custom Xblnr -->
+              <Column id="XblnrCol" width="auto" hAlign="Center">
+                <customData>
+                  <core:CustomData
+                    key="p13nData"
+                    value='\{"columnKey": "Xblnr", "maxLength": "25","columnIndex":"1", "isCurrency": false, "leadingProperty": "Xblnr", "sortProperty": "Xblnr", "type": "string"}' />
+                </customData>
+                <Label id="header-xblnr-label" text="{/#Remitos/Xblnr/@sap:label}" />
+              </Column>
+              <!-- Custom Entrega Column -->
+              <Column id="EntregaCol" width="auto" hAlign="Center">
                 <customData>
                   <core:CustomData
                     key="p13nData"
@@ -122,7 +128,7 @@
                 <Label id="header-entrega-label" text="{/#Remitos/Entrega/@sap:label}" />
               </Column>
               <!-- Custom Bzirk -->
-              <Column id="Bzirk" width="150px" hAlign="Center">
+              <Column id="Bzirk" width="auto" hAlign="Center">
                 <customData>
                   <core:CustomData 
                     key="p13nData" 
@@ -139,8 +145,10 @@
                   <Text id="Fecha-field" text="{path:'Fecha', formatter: '.formatter.dateFormat'}"/>
                   <!-- Custom Werks -->
                   <ObjectIdentifier id="Werks-field" title="{Werks}" text="{path: 'WerksName1', formatter:'.formatter.formatTitle'}"/>
-                  <!-- Hyperlink to Cross-Application -->
-                  <Link id="Entrega-field" emphasized="true" text="{Entrega}" press=".onPress"/>
+                  <!-- Hyperlink to Cross-Application Xblnr -->
+                  <ObjectStatus state="Information" id="Xblnr-field"  icon="sap-icon://pdf-attachment" text="{Xblnr}" active="true" press=".onDisplayXlbnr" tooltip="{i18n>displayXblnr} {Xblnr}"/>
+                  <!-- Hyperlink to Cross-Application Entrega -->
+                  <ObjectStatus state="Information" id="Entrega-field" icon="sap-icon://detail-view" text="{Entrega}"  active="true" press=".onDisplayEntrega" tooltip="{i18n>displayEntrega} {Entrega}"/>
                   <!-- Custom Bzirk -->
                   <Text id="Bzirk-field" text="{Bztxt} ({Bzirk})"/>
                 </cells>
