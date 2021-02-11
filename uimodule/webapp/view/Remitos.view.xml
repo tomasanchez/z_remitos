@@ -12,7 +12,7 @@
   controllerName="com.profertil.Remitos.controller.Remitos">
 	<semantic:SemanticPage 
     id="mySemanticPage" 
-    headerPinnable="false" 
+    headerPinnable="true" 
     toggleHeaderOnTitleClick="true" 
     preserveHeaderStateOnScroll="false"
     titleAreaShrinkRatio="1:1.6:1.6" showFooter="{/showFooter}">
@@ -45,9 +45,9 @@
         <!-- Controls -->
         <smartFilterBar:controlConfiguration>
           <!-- Date Control -->
-          <smartFilterBar:ControlConfiguration id="Fecha" key="Fecha" index="0" groupId="_BASIC" conditionType="sap.ui.comp.config.condition.DateRangeType" visibleInAdvancedArea="true"/>
+          <smartFilterBar:ControlConfiguration id="Fecha" key="Fecha" index="0" label="{i18n>dateDpLabel}" groupId="_BASIC" conditionType="sap.ui.comp.config.condition.DateRangeType" visibleInAdvancedArea="true"/>
             <!-- Werks Control -->
-          <smartFilterBar:ControlConfiguration id="werksCtrl" key="Centro" index="3" label="{i18n>werksSlLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
+          <smartFilterBar:ControlConfiguration id="werksCtrl" key="Centro" index="1" label="{i18n>werksSlLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
             <smartFilterBar:customControl>
               <ComboBox id="werksCB" showSecondaryValues="true" placeholder="Seleccione un centro de costo" items="{/CentrosSet}">
                 <core:ListItem id="werksCB-item" key="{Werks}" text="{Name1}" additionalText="{Werks}"/>
@@ -66,26 +66,28 @@
       <VBox id="contentContainer"  fitContainer="true" alignContent="Center" alignItems="Center" class="sapUiNoContentPadding">
         <!-- Smart Table -->
         <sap.ui.comp.smarttable:SmartTable 
-        xmlns:sap.ui.comp.smarttable="sap.ui.comp.smarttable" 
-        entitySet="RemitosSet" 
-        width="100%" 
-        direction="Column" 
-        fitContainer="true" 
-        tableType="ResponsiveTable" 
-        header="{i18n>remitosTableTitle}" 
-        enableAutoBinding="true" 
-        id="RemitosSet"
-        smartFilterId="filterbar"
-        demandPopin="true"
-        ignoreFromPersonalisation="WerksName1,Bztxt"
-        ignoredFields="Posnr"
-        showFullScreenButton="true"
-        beforeRebindTable="onBeforeRebindTable"
-        useVariantManagement="false" 
-        initiallyVisibleFields="Fecha,Xblnr,Werks,AcNegocio,Entrega,Arktx,Kdmat" 
-        justifyContent="Center"
-        class="sapUiResponsiveContentPadding"
-        alignContent="Center">
+          xmlns:sap.ui.comp.smarttable="sap.ui.comp.smarttable"
+          persistencyKey="SmartTable" 
+          entitySet="RemitosSet" 
+          width="100%" 
+          direction="Column" 
+          fitContainer="true" 
+          tableType="ResponsiveTable" 
+          header="{i18n>remitosTableTitle}" 
+          enableAutoBinding="true" 
+          id="RemitosSet"
+          smartFilterId="filterbar"
+          demandPopin="true"
+          ignoreFromPersonalisation="WerksName1,Bztxt"
+          ignoredFields="Posnr"
+          showFullScreenButton="true"
+          beforeRebindTable="onBeforeRebindTable"
+          useVariantManagement="true"
+          showVariantManagement="true"
+          initiallyVisibleFields="Fecha,Xblnr,Werks,AcNegocio,Entrega,Arktx,Kdmat" 
+          justifyContent="Center"
+          class="sapUiResponsiveContentPadding"
+          alignContent="Center">
           <!-- Custom Data Table -->
           <Table 
             id="smartTableCustom"
@@ -98,7 +100,7 @@
                     key="p13nData" 
                     value='\{"columnKey": "Fecha", "maxLength": "10","columnIndex":"0", "isCurrency": false, "leadingProperty": "Fecha", "sortProperty": "Fecha", "type": "string"}' />
                 </customData>
-                <Label id="header-fecha-label" text="{/#Remitos/Fecha/@sap:label}" />
+                <Label id="header-fecha-label" text="{/#Remitos/Fecha/@sap:label}" tooltip="{fechaTooltip}"/>
               </Column>
               <!-- Custom Werks Column -->
               <Column id="WerksCol" width="auto" hAlign="End">
@@ -107,7 +109,7 @@
                     key="p13nData" 
                     value='\{"columnKey": "Werks", "maxLength": "4","columnIndex":"2", "isCurrency": false, "leadingProperty": "Werks", "sortProperty":"Werks", "additionalProperty":"WerksName1", "type": "string"}' />
                 </customData>
-                <Label id="header-werks-label" text="{/#Remitos/Werks/@sap:label}" />
+                <Label id="header-werks-label" text="{/#Remitos/Werks/@sap:label}"  tooltip="{i18n>werksTooltip}"/>
               </Column>
               <!-- Custom Xblnr -->
               <Column id="XblnrCol" width="auto" hAlign="Center">
@@ -116,7 +118,7 @@
                     key="p13nData"
                     value='\{"columnKey": "Xblnr", "maxLength": "25","columnIndex":"1", "isCurrency": false, "leadingProperty": "Xblnr", "sortProperty": "Xblnr", "type": "string"}' />
                 </customData>
-                <Label id="header-xblnr-label" text="{/#Remitos/Xblnr/@sap:label}" />
+                <Label id="header-xblnr-label" text="{/#Remitos/Xblnr/@sap:label}"  tooltip="{i18n>xblnrTooltip}"/>
               </Column>
               <!-- Custom Entrega Column -->
               <Column id="EntregaCol" width="auto" hAlign="Center">
@@ -125,7 +127,7 @@
                     key="p13nData"
                     value='\{"columnKey": "Entrega", "maxLength": "10","columnIndex":"4", "isCurrency": false, "leadingProperty": "Entrega", "sortProperty": "Entrega", "type": "string"}' />
                 </customData>
-                <Label id="header-entrega-label" text="{/#Remitos/Entrega/@sap:label}" />
+                <Label id="header-entrega-label" text="{/#Remitos/Entrega/@sap:label}" tooltip="{i18n>entregaTooltip}"/>
               </Column>
               <!-- Custom Bzirk -->
               <Column id="Bzirk" width="auto" hAlign="Center">
@@ -134,7 +136,7 @@
                     key="p13nData" 
                     value='\{"columnKey": "Bzirk", "maxLength": "6","columnIndex":"10", "isCurrency": false, "leadingProperty": "Bzirk", "sortProperty":"Bzirk", "additionalProperty":"Bztxt", "type": "string"}' />
                 </customData>
-                <Label id="header-bzrik-label" text="{/#Remitos/Bzirk/@sap:label}" />
+                <Label id="header-bzrik-label" text="{/#Remitos/Bzirk/@sap:label}" tooltip="{i18n>bzirkTooltip}"/>
               </Column>
             </columns>
             <items>
@@ -155,7 +157,7 @@
               </ColumnListItem>
             </items> 
           </Table>
-        </sap.ui.comp.smarttable:SmartTable>    
+        </sap.ui.comp.smarttable:SmartTable>  
       </VBox>
 		</semantic:content>
 	</semantic:SemanticPage>
