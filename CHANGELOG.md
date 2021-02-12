@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/tomasanchez/z_remitos/compare/v0.0.5...v0.0.6) (2021-02-12)
+
+
+### Features
+
+* add acuerdo filter ([3b0f75a](https://github.com/tomasanchez/z_remitos/commit/3b0f75aa0da9768dc7b807fa34e621005a2e42ea))
+* add multiple downloads ([8ca612f](https://github.com/tomasanchez/z_remitos/commit/8ca612f0562431b1755e680f3e32119dd338e101))
+* show more columns ([443388f](https://github.com/tomasanchez/z_remitos/commit/443388f92dde66a0ac40d6ff6252d94ffd41ea26))
+
+
+### Bug Fixes
+
+* corrected excel date format ([fd6760b](https://github.com/tomasanchez/z_remitos/commit/fd6760b041b1589991fa0b18685c141aec9c0690))
+* model and destination binding ([28a2cfd](https://github.com/tomasanchez/z_remitos/commit/28a2cfdd86e3d33992c27b9bc612f5f8bcad3a0c))
+
 ### [0.0.5](https://github.com/tomasanchez/z_remitos/compare/v0.0.4...v0.0.5) (2021-02-10)
 
 

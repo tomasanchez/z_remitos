@@ -1,6 +1,6 @@
 {
   "name": "Remitos",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "scripts": {
     "start": "ui5 serve --config=uimodule/ui5.yaml  --open flpSandbox.html",
     "release": "standard-version",
@@ -17,6 +17,7 @@
     "build:uimodule": "ui5 build --config=uimodule/ui5.yaml --clean-dest --dest uimodule/dist --include-task=generateManifestBundle"
   },
   "devDependencies": {
+    "@prettier/plugin-xml": "^0.13.0",
     "@ui5/cli": "^2.8.1",
     "cross-var": "^1.1.0",
     "eslint": "^7.18.0",
@@ -26,6 +27,7 @@
     "karma-ui5": "^2.3.2",
     "mbt": "^1.1.0",
     "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
     "shx": "^0.3.3",
     "standard-version": "^9.1.0",
     "ui5-middleware-cfdestination": "^0.3.1",
