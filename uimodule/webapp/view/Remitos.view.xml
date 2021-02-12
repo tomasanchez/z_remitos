@@ -105,7 +105,7 @@
                 <customData>
                   <core:CustomData 
                     key="p13nData" 
-                    value='\{"columnKey": "Fecha", "maxLength": "10","columnIndex":"0", "isCurrency": false, "leadingProperty": "Fecha", "sortProperty": "Fecha", "type": "string"}' />
+                    value='\{"columnKey": "Fecha", "maxLength": "10","columnIndex":"0", "isCurrency": false, "leadingProperty": "Fecha", "sortProperty": "Fecha", "type": "date"}' />
                 </customData>
                 <Label id="header-fecha-label" text="{/#Remitos/Fecha/@sap:label}" tooltip="{fechaTooltip}"/>
               </Column>
