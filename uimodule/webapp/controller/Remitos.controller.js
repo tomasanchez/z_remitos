@@ -37,7 +37,7 @@ sap.ui.define(
        * @memberOf com.profertil.view.Remitos
        */
       onInit: function () {
-        var oViewModel;
+        var oViewModel, iOriginalBusyDelay;
 
         // eslint-disable-next-line no-unused-vars
         oController = this;
@@ -47,6 +47,9 @@ sap.ui.define(
 
         // Model used to manipulate control states
         oViewModel = new JSONModel({
+          remitosTableTitle: this.getResourceBundle().getText(
+            "remitosTableTitle"
+          ),
           showStatus: true,
           tableBusyDelay: 0,
         });
@@ -61,6 +64,21 @@ sap.ui.define(
           },
           true
         );
+
+        var oTable = this.byId("smartTableCustom");
+
+        // Put down worklist table's original value for busy indicator delay,
+        // so it can be restored later on. Busy handling on the table is
+        // taken care of by the table itself.
+        iOriginalBusyDelay = oTable.getBusyIndicatorDelay();
+
+        // Make sure, busy indication is showing immediately so there is no
+        // break after the busy indication for loading the view's meta data is
+        // ended (see promise 'oWhenMetadataIsLoaded' in AppController)
+        oTable.attachEventOnce("updateFinished", function () {
+          // Restore original busy indicator delay for worklist's table
+          oViewModel.setProperty("/tableBusyDelay", iOriginalBusyDelay);
+        });
       },
 
       /**
@@ -92,6 +110,10 @@ sap.ui.define(
       /* =========================================================== */
       /* event handlers                                              */
       /* =========================================================== */
+
+      onLimitNumbers: (oEvent) => {
+        var oInput = oEvent.getSource();
+      },
 
       /**
        * Cross Application Navigation
@@ -172,12 +194,52 @@ sap.ui.define(
       onBeforeRebindTable: function (oEvent) {
         var mBindingParams = oEvent.getParameter("bindingParams");
         var oSmtFilter = this.getView().byId("filterbar");
+
+        //Werks Custom Filter
         var oComboBox = oSmtFilter.getControlByKey("Centro");
         var sWerks = oComboBox.getSelectedKey();
         if (sWerks) {
           var newFilter = new Filter("Werks", FilterOperator.EQ, sWerks);
           mBindingParams.filters.push(newFilter);
         }
+
+        //AcNegocio Custom Filter
+        var oInput = oSmtFilter.getControlByKey("AcNegocio"),
+          sAcNegocio = oInput.getValue();
+        if (sAcNegocio) {
+          var negocioFilter = new Filter(
+            "AcNegocio",
+            FilterOperator.EQ,
+            sAcNegocio
+          );
+          mBindingParams.filters.push(negocioFilter);
+        }
+      },
+
+      /**
+       * Triggered by the table's 'updateFinished' event: after new table
+       * data is available, this handler method updates the table counter.
+       * This should only happen if the update was successful, which is
+       * why this handler is attached to 'updateFinished' and not to the
+       * table's list binding's 'dataReceived' method.
+       * @param {sap.ui.base.Event} oEvent the update finished event
+       * @public
+       */
+      onTableUpdateFinished: function (oEvent) {
+        // update the remitos's object counter after the table update
+        var sTitle,
+          oTable = oEvent.getSource(),
+          iTotalItems = oEvent.getParameter("total");
+        // only update the counter if the length is final and
+        // the table is not empty
+        if (iTotalItems) {
+          sTitle = this.getResourceBundle().getText("remitosTableTitleCount", [
+            iTotalItems,
+          ]);
+        } else {
+          sTitle = this.getResourceBundle().getText("remitosTableTitle");
+        }
+        this.getModel("remitosView").setProperty("/remitosTableTitle", sTitle);
       },
     });
   }
