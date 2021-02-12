@@ -45,13 +45,19 @@
         <!-- Controls -->
         <smartFilterBar:controlConfiguration>
           <!-- Date Control -->
-          <smartFilterBar:ControlConfiguration id="Fecha" key="Fecha" index="0" label="{i18n>dateDpLabel}" groupId="_BASIC" conditionType="sap.ui.comp.config.condition.DateRangeType" visibleInAdvancedArea="true"/>
+          <smartFilterBar:ControlConfiguration id="fechaCtrl" key="Fecha" index="0" label="{i18n>dateDpLabel}" groupId="_BASIC" conditionType="sap.ui.comp.config.condition.DateRangeType" visibleInAdvancedArea="true"/>
             <!-- Werks Control -->
           <smartFilterBar:ControlConfiguration id="werksCtrl" key="Centro" index="1" label="{i18n>werksSlLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
             <smartFilterBar:customControl>
               <ComboBox id="werksCB" showSecondaryValues="true" placeholder="Seleccione un centro de costo" items="{/CentrosSet}">
                 <core:ListItem id="werksCB-item" key="{Werks}" text="{Name1}" additionalText="{Werks}"/>
               </ComboBox>
+            </smartFilterBar:customControl>
+          </smartFilterBar:ControlConfiguration>
+          <!-- AcNegocio Control -->
+          <smartFilterBar:ControlConfiguration id="acNegocioCtrl" key= "AcNegocio" index="2" label="{i18n>acNegocioInLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true"> 
+            <smartFilterBar:customControl>
+              <Input id="acNegocioInput" type="Number" placeholder="{i18n>acNegocioPh}" maxLength="10" liveChange=".onLimitNumbers"/>
             </smartFilterBar:customControl>
           </smartFilterBar:ControlConfiguration>
         </smartFilterBar:controlConfiguration>
@@ -71,9 +77,10 @@
           entitySet="RemitosSet" 
           width="100%" 
           direction="Column" 
+          showRowCount="true"
           fitContainer="true" 
           tableType="ResponsiveTable" 
-          header="{i18n>remitosTableTitle}" 
+          header="{i18n>remitosTableTitleNoCount}" 
           enableAutoBinding="true" 
           id="RemitosSet"
           smartFilterId="filterbar"
@@ -84,7 +91,7 @@
           beforeRebindTable="onBeforeRebindTable"
           useVariantManagement="true"
           showVariantManagement="true"
-          initiallyVisibleFields="Fecha,Xblnr,Werks,AcNegocio,Entrega,Arktx,Kdmat" 
+          initiallyVisibleFields="Fecha,Xblnr,Werks,AcNegocio,Entrega,Arktx,Kdmat,,Netpr,Lfimg,Chofer" 
           justifyContent="Center"
           class="sapUiResponsiveContentPadding"
           alignContent="Center">
@@ -129,12 +136,21 @@
                 </customData>
                 <Label id="header-entrega-label" text="{/#Remitos/Entrega/@sap:label}" tooltip="{i18n>entregaTooltip}"/>
               </Column>
+              <!-- Custom Entrega Column -->
+              <Column id="CertificadoCol" width="auto" hAlign="Center">
+                <customData>
+                  <core:CustomData
+                    key="p13nData"
+                    value='\{"columnKey": "Certificado", "maxLength": "10","columnIndex":"10", "isCurrency": false, "leadingProperty": "Certificado", "sortProperty": "Certificado", "type": "string"}' />
+                </customData>
+                <Label id="header-certificado-label" text="{/#Remitos/Certificado/@sap:label}" tooltip="{i18n>certificadoTooltip}"/>
+              </Column>
               <!-- Custom Bzirk -->
               <Column id="Bzirk" width="auto" hAlign="Center">
                 <customData>
                   <core:CustomData 
                     key="p13nData" 
-                    value='\{"columnKey": "Bzirk", "maxLength": "6","columnIndex":"10", "isCurrency": false, "leadingProperty": "Bzirk", "sortProperty":"Bzirk", "additionalProperty":"Bztxt", "type": "string"}' />
+                    value='\{"columnKey": "Bzirk", "maxLength": "6","columnIndex":"11", "isCurrency": false, "leadingProperty": "Bzirk", "sortProperty":"Bzirk", "additionalProperty":"Bztxt", "type": "string"}' />
                 </customData>
                 <Label id="header-bzrik-label" text="{/#Remitos/Bzirk/@sap:label}" tooltip="{i18n>bzirkTooltip}"/>
               </Column>
@@ -148,9 +164,11 @@
                   <!-- Custom Werks -->
                   <ObjectIdentifier id="Werks-field" title="{Werks}" text="{path: 'WerksName1', formatter:'.formatter.formatTitle'}"/>
                   <!-- Hyperlink to Cross-Application Xblnr -->
-                  <ObjectStatus state="Information" id="Xblnr-field"  icon="sap-icon://pdf-attachment" text="{Xblnr}" active="true" press=".onDisplayXlbnr" tooltip="{i18n>displayXblnr} {Xblnr}"/>
+                  <ObjectStatus state="Information" id="Xblnr-field"  icon="sap-icon://pdf-attachment" text="{path:'Xblnr', formatter:'.formatter.deleteLeadingZeros'}" active="true" press=".onDisplayXlbnr" tooltip="{i18n>displayXblnr} {Xblnr}"/>
                   <!-- Hyperlink to Cross-Application Entrega -->
                   <ObjectStatus state="Information" id="Entrega-field" icon="sap-icon://detail-view" text="{Entrega}"  active="true" press=".onDisplayEntrega" tooltip="{i18n>displayEntrega} {Entrega}"/>
+                  <!-- TODO: QAS of Remito Navigation -->
+                  <ObjectStatus state="Information" id="Certificado-field" icon="sap-icon://measure" text="{Certificado}"  active="true" press=".onDisplayEntrega" tooltip="{i18n>displayCertificado} {Xblnr}"/>
                   <!-- Custom Bzirk -->
                   <Text id="Bzirk-field" text="{Bztxt} ({Bzirk})"/>
                 </cells>

@@ -45,6 +45,16 @@ sap.ui.define([], function () {
     },
 
     /**
+     * Convenince method for deleting leading zeros
+     * @public
+     * @param {string} str the string to be formatted
+     * @return {string} the string with no leading zeros
+     */
+    deleteLeadingZeros: (str) => {
+      return str ? str.replace(/^0+/, "") : "0";
+    },
+
+    /**
      * Convenince method for summing an array
      * @public
      * @param {array} aList the array of objects to be reduced in sum
