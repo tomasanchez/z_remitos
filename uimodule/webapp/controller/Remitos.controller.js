@@ -111,8 +111,22 @@ sap.ui.define(
       /* event handlers                                              */
       /* =========================================================== */
 
-      onLimitNumbers: (oEvent) => {
-        var oInput = oEvent.getSource();
+      /**
+       * Triggered by Download Button
+       * @function
+       * @public
+       */
+      onDownload: () => {
+        // Obtain table
+        var oTable = oController.byId("smartTableCustom");
+
+        // Then items, and for each item download a PDF
+        var aItems = oTable.getSelectedItems();
+        aItems.forEach((oItem, iDelay) =>
+          setTimeout(() => {
+            oController._downloadPDF(oItem.getBindingContext().getObject().Entrega);
+          }, iDelay * 2000)
+        );
       },
 
       /**
@@ -151,38 +165,9 @@ sap.ui.define(
       onDisplayXlbnr: (oEvent) => {
         // The id of 'Entrega'
         var sEntrega = oEvent.getSource().getBindingContext().getObject()
-            .Entrega,
-          // The document type
-          sDocument = "REM";
-
-        // The model from where to obtain the pdf
-        var oModel = new sap.ui.model.odata.ODataModel(
-          "/sap/opu/odata/sap/ZSV_RELATED_DOCS_SRV"
-        );
-
-        // The request Path for printing
-        var sPath = `${oModel.sServiceUrl}/PrinterSet(TipoDoc='${sDocument}',Documento='${sEntrega}')/$value`;
-
-        // Open a new window with that path
-        var oAttachment = window.open(sPath, "_blank");
-
-        // if no window show warning message
-        if (oAttachment == null) {
-          MessageBox.warning(oBundle.getText("Error.PopUpBloqued"));
-        }
-
-        /* oModel.read(sPath, {
-          success: (oData, oResponse) => {
-            var oFile = oResponse.requestUri;
-            oFile ?
-              window.open(oFile)
-            : MessageBox.error(oController.readFromI18n("noFileMSG"));
-          },
-          error: () => {
-            // Server error throw error msg 2
-            MessageBox.error(oController.readFromI18n("noFileErrorMSG"));
-          }
-      });*/
+          .Entrega;
+        // Download PDF based on 'Entrega' ID
+        oController._downloadPDF(sEntrega);
       },
 
       /**
@@ -213,6 +198,34 @@ sap.ui.define(
             sAcNegocio
           );
           mBindingParams.filters.push(negocioFilter);
+        }
+      },
+
+      /* =========================================================== */
+      /* Internal Methods                                            */
+      /* =========================================================== */
+
+      /**
+       * Downloads a PDF File of a 'Remito'
+       * @function
+       * @param {string} sEntrega the id of entrega to be fetch
+       * @public
+       */
+      _downloadPDF: (sEntrega) => {
+        // The document Type
+        var sDocument = "REM";
+        // The model from where to obtain the pdf
+        var oModel = oController.getModel("relatedDocs");
+
+        // The request Path for printing
+        var sPath = `${oModel.sServiceUrl}/PrinterSet(TipoDoc='${sDocument}',Documento='${sEntrega}')/$value`;
+
+        // Open a new window with that path
+        var oAttachment = window.open(sPath, "_blank");
+
+        // if no window show warning message
+        if (oAttachment == null) {
+          MessageBox.warning(oController.readFromI18n("noFileErrorMSG"));
         }
       },
 

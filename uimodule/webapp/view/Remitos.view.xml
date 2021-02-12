@@ -95,9 +95,18 @@
           justifyContent="Center"
           class="sapUiResponsiveContentPadding"
           alignContent="Center">
+            <!-- Custom Toolbar -->
+            <sap.ui.comp.smarttable:customToolbar>
+              <OverflowToolbar id="customOverflowToolbar" design="Transparent">
+                <ToolbarSpacer id="customToolbarSpacer"/>
+                <OverflowToolbarButton id="massiveDownload" icon="sap-icon://download" tooltip="{i18n>downloadButton}" type="Emphasized" press=".onDownload"/>
+              </OverflowToolbar>
+		        </sap.ui.comp.smarttable:customToolbar>
           <!-- Custom Data Table -->
           <Table 
             id="smartTableCustom"
+            alternateRowColors="true"
+            mode="MultiSelect"
             sticky="ColumnHeaders,HeaderToolbar">
             <columns>
               <!-- Custom Date Column -->
