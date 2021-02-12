@@ -4,13 +4,7 @@
     {
     "authenticationType": "none",
     "csrfProtection": false,
-    "source": "^/sap/opu/odata/sap/ZSV_REMITOS_SRV/",
-    "destination": "DesarrolloCF"
-    },
-    {
-    "authenticationType": "none",
-    "csrfProtection": false,
-    "source": "^/sap/opu/odata/sap/ZSV_RELATED_DOCS_SRV/",
+    "source": "^/sap/opu/odata/sap/(.*)",
     "destination": "DesarrolloCF"
     },
     {

@@ -44,7 +44,7 @@
         "type": "OData",
         "settings": {
           "odataVersion": "2.0",
-          "localUri": "localService//sap/opu/odata/sap/ZSV_RELATED_DOCS_SRV//metadata.xml"
+          "localUri": "localService/ZSV_RELATED_DOCS_SRV/metadata.xml"
         }
       }
     }
