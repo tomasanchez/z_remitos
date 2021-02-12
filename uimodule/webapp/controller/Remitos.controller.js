@@ -124,8 +124,10 @@ sap.ui.define(
         var aItems = oTable.getSelectedItems();
         aItems.forEach((oItem, iDelay) =>
           setTimeout(() => {
-            oController._downloadPDF(oItem.getBindingContext().getObject().Entrega);
-          }, iDelay * 2000)
+            oController._downloadPDF(
+              oItem.getBindingContext().getObject().Entrega
+            );
+          }, iDelay * 1500)
         );
       },
 
@@ -221,12 +223,16 @@ sap.ui.define(
         var sPath = `${oModel.sServiceUrl}/PrinterSet(TipoDoc='${sDocument}',Documento='${sEntrega}')/$value`;
 
         // Open a new window with that path
-        var oAttachment = window.open(sPath, "_blank");
+        //var oAttachmet = window.open(sPath, "_blank");
+
+        sap.ui.Device.system.phone
+          ? sap.m.URLHelper.redirect(sPath, true)
+          : sap.m.URLHelper.redirect(sPath);
 
         // if no window show warning message
-        if (oAttachment == null) {
+        /*if (oAttachment == null) {
           MessageBox.warning(oController.readFromI18n("noFileErrorMSG"));
-        }
+        } */
       },
 
       /**
@@ -241,7 +247,6 @@ sap.ui.define(
       onTableUpdateFinished: function (oEvent) {
         // update the remitos's object counter after the table update
         var sTitle,
-          oTable = oEvent.getSource(),
           iTotalItems = oEvent.getParameter("total");
         // only update the counter if the length is final and
         // the table is not empty
