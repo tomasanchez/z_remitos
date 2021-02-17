@@ -127,7 +127,7 @@ sap.ui.define(
             oController._downloadPDF(
               oItem.getBindingContext().getObject().Entrega
             );
-          }, iDelay * 1500)
+          }, iDelay * 2000)
         );
       },
 
@@ -223,16 +223,16 @@ sap.ui.define(
         var sPath = `${oModel.sServiceUrl}/PrinterSet(TipoDoc='${sDocument}',Documento='${sEntrega}')/$value`;
 
         // Open a new window with that path
-        //var oAttachmet = window.open(sPath, "_blank");
+        var oAttachment = window.open(sPath, "_blank");
 
-        sap.ui.Device.system.phone
+        /*sap.ui.Device.system.phone
           ? sap.m.URLHelper.redirect(sPath, true)
-          : sap.m.URLHelper.redirect(sPath);
+          : sap.m.URLHelper.redirect(sPath); */
 
         // if no window show warning message
-        /*if (oAttachment == null) {
+        if (oAttachment == null) {
           MessageBox.warning(oController.readFromI18n("noFileErrorMSG"));
-        } */
+        }
       },
 
       /**
