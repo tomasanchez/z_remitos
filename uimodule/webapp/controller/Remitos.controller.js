@@ -51,6 +51,9 @@ sap.ui.define(
             "remitosTableTitle"
           ),
           showStatus: true,
+          showDownload: false,
+          showSelectDownloads: true,
+          tableSelectionMode: "None",
           tableBusyDelay: 0,
         });
         this.setModel(oViewModel, "remitosView");
@@ -112,11 +115,38 @@ sap.ui.define(
       /* =========================================================== */
 
       /**
-       * Triggered by Download Button
+       * Triggered by Footer Main action.
+       * Enables selection in table and download action.
        * @function
+       * @param {sap.ui.base.Event} oEvent the button press event
+       * @param {boolean} bActive the active state
        * @public
        */
-      onDownload: () => {
+      onSelectDownloads: (oEvent, bActive = true) => {
+        oController._toggleTableSelection(bActive);
+        oController._toggleDownloadButtons(bActive);
+      },
+
+      /**
+       * Triggered by Footer Main action.
+       * Enables selection in table and download action.
+       * @function
+       * @param {sap.ui.base.Event} oEvent the button press event
+       * @public
+       */
+      // eslint-disable-next-line no-unused-vars
+      onCancelDownloads: (oEvent) => {
+        oController.onSelectDownloads(null, false);
+      },
+
+      /**
+       * Triggered by Download Button
+       * @function
+       * @param {sap.ui.base.Event} oEvent the button press event
+       * @public
+       */
+      // eslint-disable-next-line no-unused-vars
+      onDownload: (oEvent) => {
         // Obtain table
         var oTable = oController.byId("smartTableCustom");
 
@@ -206,6 +236,32 @@ sap.ui.define(
       /* =========================================================== */
       /* Internal Methods                                            */
       /* =========================================================== */
+
+      /**
+       * Enables or disables multi-selection in the table.
+       * @function
+       * @private
+       * @param {boolean} bActive active select mode ?
+       */
+      _toggleTableSelection: (bActive = false) => {
+        var oViewModel = oController.getModel("remitosView");
+        oViewModel.setProperty(
+          "/tableSelectionMode",
+          bActive ? "MultiSelect" : "None"
+        );
+      },
+
+      /**
+       * Enables or disable visibility of buttons by changing model property.
+       * @function
+       * @private
+       * @param {boolean} bActive active select mode ?
+       */
+      _toggleDownloadButtons: (bActive = false) => {
+        var oViewModel = oController.getModel("remitosView");
+        oViewModel.setProperty("/showDownload", bActive);
+        oViewModel.setProperty("/showSelectDownloads", !bActive);
+      },
 
       /**
        * Downloads a PDF File of a 'Remito'

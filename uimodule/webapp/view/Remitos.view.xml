@@ -13,9 +13,10 @@
 	<semantic:SemanticPage 
     id="mySemanticPage" 
     headerPinnable="true" 
-    toggleHeaderOnTitleClick="true" 
+    toggleHeaderOnTitleClick="true"
+    showFooter="true"
     preserveHeaderStateOnScroll="false"
-    titleAreaShrinkRatio="1:1.6:1.6" showFooter="{/showFooter}">
+    titleAreaShrinkRatio="1:1.6:1.6">
 		<!-- Title Heading-->
 		<semantic:titleHeading>
 			<Title id="headerTitle" text="{i18n>remitosTitle}"/>
@@ -99,14 +100,13 @@
             <sap.ui.comp.smarttable:customToolbar>
               <OverflowToolbar id="customOverflowToolbar" design="Transparent">
                 <ToolbarSpacer id="customToolbarSpacer"/>
-                <OverflowToolbarButton id="massiveDownload" icon="sap-icon://download" tooltip="{i18n>downloadButton}" type="Emphasized" press=".onDownload"/>
               </OverflowToolbar>
 		        </sap.ui.comp.smarttable:customToolbar>
           <!-- Custom Data Table -->
           <Table 
             id="smartTableCustom"
             alternateRowColors="true"
-            mode="MultiSelect"
+            mode="{remitosView>/tableSelectionMode}"
             sticky="ColumnHeaders,HeaderToolbar">
             <columns>
               <!-- Custom Date Column -->
@@ -187,5 +187,13 @@
         </sap.ui.comp.smarttable:SmartTable>  
       </VBox>
 		</semantic:content>
+    <!-- Semantic Footer Buttons -->
+		<semantic:footerMainAction>
+			<semantic:FooterMainAction id="selectDownloadsAction" text="{i18n>selectDownload}" press=".onSelectDownloads" tooltip="{}" visible="{remitosView>/showSelectDownloads}"/>
+		</semantic:footerMainAction>
+		<semantic:footerCustomActions>
+      <Button id="downloadAction" icon="sap-icon://download" press=".onDownload" text="Descargar" type="Emphasized" tooltip="{i18n>downloadButton}" visible="{remitosView>/showDownload}"/>
+			<Button id="cancelAction"  icon="sap-icon://decline" press=".onCancelDownloads" text="Cancelar" type="Reject" tooltip="{i18n>cancelDownloadButton}" visible="{remitosView>/showDownload}"/>
+		</semantic:footerCustomActions>
 	</semantic:SemanticPage>
 </mvc:View>
