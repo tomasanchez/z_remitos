@@ -1,3 +1,4 @@
+/* eslint-disable no-warning-comments */
 sap.ui.define(
   [
     "com/profertil/Remitos/controller/BaseController",
@@ -273,22 +274,35 @@ sap.ui.define(
         // The document Type
         var sDocument = "REM";
         // The model from where to obtain the pdf
-        var oModel = oController.getModel("relatedDocs");
+        var oModel = oController.getModel("relatedDocs"),
+          sServiceUrl = oModel.sServiceUrl;
+
+        // TODO: fix this, for some reason in
+        // launchpad sServiceUrl does not contain the complete service url
+        // so the service url is obtained from default model
+        var sSource = oController
+          .getModel()
+          // Curt the service url
+          .sServiceUrl.substr(
+            0,
+            // from start to when it finds odata path, as it should be 'relatedDocs' odata url
+            oController.getModel().sServiceUrl.indexOf("/sap/opu/odata")
+          );
 
         // The request Path for printing
-        var sPath = `${oModel.sServiceUrl}/PrinterSet(TipoDoc='${sDocument}',Documento='${sEntrega}')/$value`;
+        var sPath = `${sSource}${sServiceUrl}/PrinterSet(TipoDoc='${sDocument}',Documento='${sEntrega}')/$value`;
 
         // Open a new window with that path
-        var oAttachment = window.open(sPath, "_blank");
+        // var oAttachment = window.open(sPath, "_blank");
 
-        /*sap.ui.Device.system.phone
+        sap.ui.Device.system.phone
           ? sap.m.URLHelper.redirect(sPath, true)
-          : sap.m.URLHelper.redirect(sPath); */
+          : sap.m.URLHelper.redirect(sPath);
 
         // if no window show warning message
-        if (oAttachment == null) {
+        /* if (oAttachment == null) {
           MessageBox.warning(oController.readFromI18n("noFileErrorMSG"));
-        }
+        } */
       },
 
       /**
