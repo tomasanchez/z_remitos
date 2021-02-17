@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/tomasanchez/z_remitos/compare/v0.0.6...v0.0.7) (2021-02-17)
+
+
+### Bug Fixes
+
+* **pdf:** download service url come around ([60096ff](https://github.com/tomasanchez/z_remitos/commit/60096ff886f9bd432ec9d8c837d98632959ca691))
+
 ### [0.0.6](https://github.com/tomasanchez/z_remitos/compare/v0.0.5...v0.0.6) (2021-02-12)
 
 
