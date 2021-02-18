@@ -95,7 +95,7 @@
           beforeRebindTable="onBeforeRebindTable"
           useVariantManagement="true"
           showVariantManagement="true"
-          initiallyVisibleFields="Fecha,Xblnr,Werks,AcNegocio,Entrega,Arktx,Kdmat,,Netpr,Lfimg,Chofer" 
+          initiallyVisibleFields="Fecha,Xblnr,Werks,AcNegocio,Entrega,Arktx,Kdmat,,Netpr,Lfimg,Chofer,Dni,Patentes" 
           justifyContent="Center"
           class="sapUiResponsiveContentPadding"
           alignContent="Center">
@@ -139,12 +139,21 @@
                 </customData>
                 <Label id="header-xblnr-label" text="{/#Remitos/Xblnr/@sap:label}"  tooltip="{i18n>xblnrTooltip}"/>
               </Column>
+              <!-- Custom Gueen Column -->
+              <Column id="GueenCol" width="auto" hAlign="Begin">
+                <customData>
+                  <core:CustomData 
+                    key="p13nData" 
+                    value='\{"columnKey": "Gueen", "maxLength": "10","columnIndex":"4", "isCurrency": false, "leadingProperty": "Gueen", "sortProperty": "Gueen", "type": "date"}' />
+                </customData>
+                <Label id="header-Gueen-label" text="{/#Remitos/Gueen/@sap:label}"/>
+              </Column>
               <!-- Custom Entrega Column -->
               <Column id="EntregaCol" width="auto" hAlign="Center">
                 <customData>
                   <core:CustomData
                     key="p13nData"
-                    value='\{"columnKey": "Entrega", "maxLength": "10","columnIndex":"4", "isCurrency": false, "leadingProperty": "Entrega", "sortProperty": "Entrega", "type": "string"}' />
+                    value='\{"columnKey": "Entrega", "maxLength": "10","columnIndex":"5", "isCurrency": false, "leadingProperty": "Entrega", "sortProperty": "Entrega", "type": "string"}' />
                 </customData>
                 <Label id="header-entrega-label" text="{/#Remitos/Entrega/@sap:label}" tooltip="{i18n>entregaTooltip}"/>
               </Column>
@@ -177,6 +186,8 @@
                   <ObjectIdentifier id="Werks-field" title="{Werks}" text="{path: 'WerksName1', formatter:'.formatter.formatTitle'}"/>
                   <!-- Hyperlink to Cross-Application Xblnr -->
                   <ObjectStatus state="Information" id="Xblnr-field"  icon="sap-icon://pdf-attachment" text="{path:'Xblnr', formatter:'.formatter.deleteLeadingZeros'}" active="true" press=".onDisplayXlbnr" tooltip="{i18n>displayXblnr} {Xblnr}"/>
+                  <!-- Formatted Gueen = 'dd/mm/yyyy' -->
+                  <Text id="Gueen-field" text="{path:'Gueen', formatter: '.formatter.dateFormat'}"/>
                   <!-- Hyperlink to Cross-Application Entrega -->
                   <ObjectStatus state="Information" id="Entrega-field" icon="sap-icon://detail-view" text="{Entrega}"  active="true" press=".onDisplayEntrega" tooltip="{i18n>displayEntrega} {Entrega}"/>
                   <!-- TODO: QAS of Remito Navigation -->
