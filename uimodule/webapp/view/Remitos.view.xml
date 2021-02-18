@@ -46,7 +46,10 @@
         <!-- Controls -->
         <smartFilterBar:controlConfiguration>
           <!-- Date Control -->
-          <smartFilterBar:ControlConfiguration id="fechaCtrl" key="Fecha" index="0" label="{i18n>dateDpLabel}" groupId="_BASIC" conditionType="sap.ui.comp.config.condition.DateRangeType" visibleInAdvancedArea="true"/>
+          <smartFilterBar:ControlConfiguration id="fechaCtrl" key="Fecha" index="0" label="{i18n>dateDpLabel}" groupId="_BASIC" 
+            conditionType="sap.ui.comp.config.condition.DateRangeType"
+            visibleInAdvancedArea="true">
+          </smartFilterBar:ControlConfiguration>
             <!-- Werks Control -->
           <smartFilterBar:ControlConfiguration id="werksCtrl" key="Centro" index="1" label="{i18n>werksSlLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
             <smartFilterBar:customControl>

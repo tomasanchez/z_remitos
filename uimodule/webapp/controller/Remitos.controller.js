@@ -55,6 +55,8 @@ sap.ui.define(
           showDownload: false,
           showSelectDownloads: true,
           tableSelectionMode: "None",
+          dToday: new Date(),
+          dLastWeek: oController._getLastWeek(),
           tableBusyDelay: 0,
         });
         this.setModel(oViewModel, "remitosView");
@@ -99,9 +101,8 @@ sap.ui.define(
        * This hook is the same one that SAPUI5 controls get after being rendered.
        * @memberOf com.profertil.view.Remitos
        */
-      //	onAfterRendering: function() {
-      //
-      //	},
+      //onAfterRendering: function () {
+      //},
 
       /**
        * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
@@ -303,6 +304,39 @@ sap.ui.define(
         /* if (oAttachment == null) {
           MessageBox.warning(oController.readFromI18n("noFileErrorMSG"));
         } */
+      },
+
+      /**
+       * Creates a default date select options
+       * @function
+       * @private
+       * @return {sap.ui.comp.smartfilterbar.SelectOption} the default date select options
+       */
+      _getDateSelectOptions: () => {
+        var oSelectOptions = new sap.ui.comp.smartfilterbar.SelectOption();
+        oSelectOptions.high = new Date();
+        oSelectOptions.low = oController._getLastWeek();
+        return oSelectOptions;
+      },
+
+      /**
+       * Convenience method for creating a date from last week
+       * @function
+       * @private
+       * @return {Date} the last week date
+       */
+      _getLastWeek: () => {
+        var dToday = new Date();
+
+        const iDays = 7,
+          iHours = 24,
+          iMinutes = 60,
+          iSeconds = 60,
+          iMiliSeconds = 1000;
+
+        return new Date(
+          dToday.getTime() - iDays * iHours * iMinutes * iSeconds * iMiliSeconds
+        );
       },
 
       /**
