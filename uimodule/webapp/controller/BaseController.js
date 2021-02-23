@@ -1,6 +1,17 @@
 /**
- * Global fragment storage
- * @array
+ * Base Controller.
+ *
+ * Common and inheritable methods for all other controllers.
+ *
+ * @file This files describes the app Base Controller.
+ * @author Tomas A. Sanchez
+ * @since 01.29.2021
+ */
+
+/* eslint-disable block-scoped-var */
+
+/**
+ * Global fragment storage.
  * @private
  */
 var _fragments = [];

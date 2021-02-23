@@ -1,3 +1,12 @@
+/**
+ * App Controller.
+ *
+ * App View controller container.
+ *
+ * @file This files describes App View controller.
+ * @author Tomas A. Sanchez
+ * @since 01.29.2021
+ */
 sap.ui.define(
   [
     "com/profertil/Remitos/controller/BaseController",
