@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.8](https://github.com/tomasanchez/z_remitos/compare/v0.0.7...v0.0.8) (2021-02-23)
+
+
+### Features
+
+* **view:** add new column ([1084bfa](https://github.com/tomasanchez/z_remitos/commit/1084bfaffe0644c556f0031ef62e3a6c3ffa65bc))
+* add certificate press event ([c8b98a4](https://github.com/tomasanchez/z_remitos/commit/c8b98a43a98cf067c912b33a981de33e7c75288d))
+
+
+### Bug Fixes
+
+* **tile:** display correct subtitle text ([7f724ec](https://github.com/tomasanchez/z_remitos/commit/7f724ec9be589fb81f49a3eaba22ac55ddcd0d8b))
+
 ### [0.0.7](https://github.com/tomasanchez/z_remitos/compare/v0.0.6...v0.0.7) (2021-02-17)
 
 
