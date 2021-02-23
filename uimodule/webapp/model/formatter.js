@@ -28,6 +28,14 @@ sap.ui.define([], function () {
     },
 
     /**
+     * Number Format shortcut
+     * @function
+     * @param {number} n the number to be formatted
+     * @returns {string} the formatted number
+     */
+    toLocaleNumber: Intl.NumberFormat().format,
+
+    /**
      * Capitalizes each letter after blank space in a string
      * @function
      * @param {string} str the string to be formatted
@@ -63,7 +71,7 @@ sap.ui.define([], function () {
      */
     sumList: function (aList, sProperty) {
       return aList.reduce(function (a, b) {
-        return a + b[sProperty];
+        return a + parseFloat(b[sProperty]);
       }, 0);
     },
   };

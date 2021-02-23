@@ -111,6 +111,7 @@
             id="smartTableCustom"
             alternateRowColors="true"
             mode="{remitosView>/tableSelectionMode}"
+            updateFinished=".onTableUpdateFinished"
             sticky="ColumnHeaders,HeaderToolbar">
             <columns>
               <!-- Custom Date Column -->
