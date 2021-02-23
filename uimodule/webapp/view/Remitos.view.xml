@@ -191,7 +191,7 @@
                   <!-- Hyperlink to Cross-Application Entrega -->
                   <ObjectStatus state="Information" id="Entrega-field" icon="sap-icon://detail-view" text="{Entrega}"  active="true" press=".onDisplayEntrega" tooltip="{i18n>displayEntrega} {Entrega}"/>
                   <!-- TODO: QAS of Remito Navigation -->
-                  <ObjectStatus state="Information" id="Certificado-field" icon="sap-icon://measure" text="{Certificado}"  active="true" press=".onDisplayEntrega" tooltip="{i18n>displayCertificado} {Xblnr}"/>
+                  <ObjectStatus state="Information" id="Certificado-field" icon="sap-icon://measure" text="{Certificado}"  active="true" press=".onDisplayCertificado" tooltip="{i18n>displayCertificado} {Xblnr}"/>
                   <!-- Custom Bzirk -->
                   <Text id="Bzirk-field" text="{Bztxt} ({Bzirk})"/>
                 </cells>

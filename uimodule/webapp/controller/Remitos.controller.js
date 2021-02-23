@@ -191,6 +191,21 @@ sap.ui.define(
       },
 
       /**
+       * Shows Quality Certificate.
+       * @function
+       * @param {sap.ui.base.Event} oEvent the press event on Quality Certificate field
+       * @public
+       */
+      onDisplayCertificado: (oEvent) => {
+        // Number of certificates.
+        var sCertificado = oEvent.getSource().getBindingContext().getObject()
+          .Certificado;
+
+        // TODO: oController._downloadPDF(sCertificado, 'To be defined');
+        MessageBox.warning(`Certificado #${sCertificado} no disponible`);
+      },
+
+      /**
        * File downloader handler
        * @function
        * @param {sap.ui.base.Event} oEvent the press event on Xlbnr field
@@ -269,11 +284,10 @@ sap.ui.define(
        * Downloads a PDF File of a 'Remito'
        * @function
        * @param {string} sEntrega the id of entrega to be fetch
+       * @param {string} sDocument the document type, default REM
        * @public
        */
-      _downloadPDF: (sEntrega) => {
-        // The document Type
-        var sDocument = "REM";
+      _downloadPDF: (sEntrega, sDocument = "REM") => {
         // The model from where to obtain the pdf
         var oModel = oController.getModel("relatedDocs"),
           sServiceUrl = oModel.sServiceUrl;
