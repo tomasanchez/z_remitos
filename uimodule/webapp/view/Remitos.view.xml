@@ -103,6 +103,7 @@
             <sap.ui.comp.smarttable:customToolbar>
               <OverflowToolbar id="customOverflowToolbar" design="Transparent">
                 <ToolbarSpacer id="customToolbarSpacer"/>
+                <Button id="groupButton" icon="sap-icon://group-2" tooltip="{i18n>groupButton}" press=".onGroup"/>
               </OverflowToolbar>
 		        </sap.ui.comp.smarttable:customToolbar>
           <!-- Custom Data Table -->

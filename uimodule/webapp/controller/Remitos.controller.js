@@ -1,3 +1,12 @@
+/**
+ * Remitos Controller.
+ *
+ * Methods of Remitos View.
+ *
+ * @file This files describes Remitos View controller.
+ * @author Tomas A. Sanchez
+ * @since 2.23.2021
+ */
 /* eslint-disable no-warning-comments */
 sap.ui.define(
   [
@@ -253,6 +262,22 @@ sap.ui.define(
       /* =========================================================== */
       /* Internal Methods                                            */
       /* =========================================================== */
+
+      /**
+       * Opens Dialog.
+       * @function
+       * @private
+       */
+      _groupDialog: () => {
+        if (!oController._oDialog) {
+          oController._oDialog = sap.ui.xmlfragment(
+            "profertil.historialAcuerdosApp.view.GroupingDialog"
+          );
+          oController.getView().addDependent(oController._oDialog);
+        }
+        oController._oDialog.attachConfirm(oController.onGroupDialogConfirm);
+        oController._oDialog.open();
+      },
 
       /**
        * Enables or disables multi-selection in the table.
