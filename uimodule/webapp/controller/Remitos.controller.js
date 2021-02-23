@@ -395,19 +395,88 @@ sap.ui.define(
        * @public
        */
       onTableUpdateFinished: function (oEvent) {
-        // update the remitos's object counter after the table update
-        var sTitle,
-          iTotalItems = oEvent.getParameter("total");
-        // only update the counter if the length is final and
-        // the table is not empty
-        if (iTotalItems) {
-          sTitle = this.getResourceBundle().getText("remitosTableTitleCount", [
-            iTotalItems,
-          ]);
-        } else {
-          sTitle = this.getResourceBundle().getText("remitosTableTitle");
-        }
-        this.getModel("remitosView").setProperty("/remitosTableTitle", sTitle);
+        /**
+         * Convenience function.
+         *
+         * Determines if is a GroupHeaderList Item or not
+         *
+         * @function
+         * @private
+         * @param {object} oItem a Table item
+         * @returns {boolean} if is a GroupHeader
+         */
+        const isGroupHeader = (oItem) => {
+          return oItem instanceof sap.m.GroupHeaderListItem;
+        };
+
+        // The sap.m.Table
+        var oTable = oEvent.getSource(),
+          // All table items
+          aItems = oTable.getItems(),
+          // Entites objects
+          aEntities = aItems
+            // Filter Group Headers
+            .filter((oItem) => !isGroupHeader(oItem))
+            // Retrieve entity
+            .map((oItem) => oItem.getBindingContext().getObject()),
+          // All Group Headers Items
+          aGroupHeaders = aItems.filter((oItem) => isGroupHeader(oItem));
+
+        // The current sort property that bindings are ordered by.
+        var sProperty = oController._getSortProperty(oTable);
+        // Set titles for all headers
+        if (aGroupHeaders.length > 0)
+          oController._adjustGroupHeaders(aGroupHeaders, aEntities, sProperty);
+      },
+
+      /**
+       * Convenience Method for obtaining sort property.
+       *
+       * Obtains current ordered by property in table.
+       *
+       * @function
+       * @private
+       * @param {sap.m.Table} oTable the table from where obtain sort property
+       * @returns {string} the ordered by property
+       */
+      _getSortProperty: (oTable) => {
+        var sSortParams = oTable.getBinding("items").sSortParams;
+        return sSortParams
+          ? sSortParams.replace("$orderby=", "").replace(/%(.*)/g, "")
+          : undefined;
+      },
+
+      /**
+       * Convenience method for setting Group Header Titles.
+       *
+       * Sets group header titles with total.
+       *
+       * @param {array} aGroupHeaders the array of all Group Headers
+       * @param {array} aEntities the array of all entities entries
+       * @param {string} sProperty the current ordered by property
+       */
+      _adjustGroupHeaders: function (aGroupHeaders, aEntities = [], sProperty) {
+        aGroupHeaders.forEach((oGroupHeader) => {
+          // Current Group
+          var sGroupValue = sProperty.includes("Fecha")
+              ? new Date(oGroupHeader.getTitle()).toLocaleDateString()
+              : oGroupHeader.getTitle(),
+            // Entities in current group
+            aGroupEntities = aEntities.filter(
+              (oEntity) => oEntity[sProperty] === sGroupValue
+            );
+
+          // The Access Property from where obtain values
+          var sAccessProp = "Lfimg",
+            // The total value
+            iTotal = oController.formatter.sumList(aGroupEntities, sAccessProp);
+
+          oGroupHeader.setTitle(
+            `${sGroupValue} - Total: ${oController.formatter.toLocaleNumber(
+              iTotal
+            )} tns`
+          );
+        });
       },
     });
   }

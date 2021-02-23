@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core"
+>
+	<ViewSettingsDialog id="groupDialog">
+    <sortItems>
+      <ViewSettingsItem id="werksOption" text="{/#Remitos/Werks/@sap:label}" key="Werks" />
+      <ViewSettingsItem id="acNegocioOption" text="{/#Remitos/AcNegocio/@sap:label}" key="AcNegocio" />
+      <ViewSettingsItem id="bzirkOption" text="{/#Remitos/Bzirk/@sap:label}" key="Bzirk" />
+      <ViewSettingsItem id="choferOption" text="{/#Remitos/Chofer/@sap:label}" key="Chofer" />
+    </sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>
