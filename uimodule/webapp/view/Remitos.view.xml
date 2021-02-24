@@ -45,13 +45,19 @@
         showRestoreOnFB="true">
         <!-- Controls -->
         <smartFilterBar:controlConfiguration>
+          <!-- Kunang Control -->
+          <smartFilterBar:ControlConfiguration id="kunagCtrl" key="Kunag" index="0" label="{i18n>kunagInLabel}" groupId="_BASIC" width="300px"  visible="{remitosView>/isAdmin}" visibleInAdvancedArea="{remitosView>/isAdmin}"> 
+            <smartFilterBar:customControl>
+              <Input id="kunagInput" type="Number" placeholder="{i18n>kunagPh}" maxLength="10" enabled="{remitosView>/isAdmin}" />
+            </smartFilterBar:customControl>
+          </smartFilterBar:ControlConfiguration>
           <!-- Date Control -->
-          <smartFilterBar:ControlConfiguration id="fechaCtrl" key="Fecha" index="0" label="{i18n>dateDpLabel}" groupId="_BASIC" 
+          <smartFilterBar:ControlConfiguration id="fechaCtrl" key="Fecha" index="1" label="{i18n>dateDpLabel}" groupId="_BASIC" 
             conditionType="sap.ui.comp.config.condition.DateRangeType"
             visibleInAdvancedArea="true">
           </smartFilterBar:ControlConfiguration>
             <!-- Werks Control -->
-          <smartFilterBar:ControlConfiguration id="werksCtrl" key="Centro" index="1" label="{i18n>werksSlLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
+          <smartFilterBar:ControlConfiguration id="werksCtrl" key="Centro" index="2" label="{i18n>werksSlLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true">
             <smartFilterBar:customControl>
               <ComboBox id="werksCB" showSecondaryValues="true" placeholder="Seleccione un centro de costo" items="{/CentrosSet}">
                 <core:ListItem id="werksCB-item" key="{Werks}" text="{Name1}" additionalText="{Werks}"/>
@@ -59,9 +65,9 @@
             </smartFilterBar:customControl>
           </smartFilterBar:ControlConfiguration>
           <!-- AcNegocio Control -->
-          <smartFilterBar:ControlConfiguration id="acNegocioCtrl" key= "AcNegocio" index="2" label="{i18n>acNegocioInLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true"> 
+          <smartFilterBar:ControlConfiguration id="acNegocioCtrl" key= "AcNegocio" index="3" label="{i18n>acNegocioInLabel}" groupId="_BASIC" width="300px" visibleInAdvancedArea="true"> 
             <smartFilterBar:customControl>
-              <Input id="acNegocioInput" type="Number" placeholder="{i18n>acNegocioPh}" maxLength="10" liveChange=".onLimitNumbers"/>
+              <Input id="acNegocioInput" type="Number" placeholder="{i18n>acNegocioPh}" maxLength="10"/>
             </smartFilterBar:customControl>
           </smartFilterBar:ControlConfiguration>
         </smartFilterBar:controlConfiguration>
@@ -89,8 +95,7 @@
           id="RemitosSet"
           smartFilterId="filterbar"
           demandPopin="true"
-          ignoreFromPersonalisation="WerksName1,Bztxt"
-          ignoredFields="Posnr"
+          ignoreFromPersonalisation="WerksName1,Bztxt,Posnr"
           showFullScreenButton="true"
           beforeRebindTable="onBeforeRebindTable"
           useVariantManagement="true"
@@ -112,6 +117,8 @@
             alternateRowColors="true"
             mode="{remitosView>/tableSelectionMode}"
             updateFinished=".onTableUpdateFinished"
+            growing="true"
+            growingThreshold="20"
             sticky="ColumnHeaders,HeaderToolbar">
             <columns>
               <!-- Custom Date Column -->
