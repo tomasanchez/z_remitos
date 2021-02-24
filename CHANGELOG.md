@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/tomasanchez/z_remitos/compare/v0.0.8...v0.0.9) (2021-02-24)
+
+
+### Features
+
+* add admin validation ([8847609](https://github.com/tomasanchez/z_remitos/commit/8847609c2b1fb3624a73a2770e20f2cf0b48a8ad))
+* add entrega grouping ([e994547](https://github.com/tomasanchez/z_remitos/commit/e994547f2ebc82847910aeb8b902f561bf6fcb2a))
+* add kunag filtering ([85dc75f](https://github.com/tomasanchez/z_remitos/commit/85dc75fbf330641ce117a617d627880a6c5f19fd))
+* add subtotals grouping ([bed7b4c](https://github.com/tomasanchez/z_remitos/commit/bed7b4c3b9b875bae26fd0e25a73ab357d6a2413))
+
 ### [0.0.8](https://github.com/tomasanchez/z_remitos/compare/v0.0.7...v0.0.8) (2021-02-23)
 
 
