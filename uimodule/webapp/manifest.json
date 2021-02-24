@@ -133,9 +133,7 @@
         {
           "name": "remitos",
           "pattern": "",
-          "target": [
-            "remitos"
-          ]
+          "target": ["remitos"]
         }
       ],
       "targets": {
