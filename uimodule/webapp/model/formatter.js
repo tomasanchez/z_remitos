@@ -53,6 +53,24 @@ sap.ui.define([], function () {
     },
 
     /**
+     * Convenience method for removing a label.
+     *
+     * Removes a label with colons and trims it.
+     *
+     * @function
+     * @public
+     * @param {string} str the string to be formatted
+     * @return {string} labelless string
+     */
+    removeLabel: (str) => {
+      try {
+        return /:(.+)/.exec(str)[1].trim();
+      } catch (err) {
+        return str.trim();
+      }
+    },
+
+    /**
      * Convenince method for deleting leading zeros
      * @public
      * @param {string} str the string to be formatted
