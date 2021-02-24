@@ -67,6 +67,7 @@ sap.ui.define(
           dToday: new Date(),
           dLastWeek: oController._getLastWeek(),
           tableBusyDelay: 0,
+          isAdmin: oController._isAdmin(),
         });
         this.setModel(oViewModel, "remitosView");
 
@@ -75,7 +76,7 @@ sap.ui.define(
           {
             title: this.getResourceBundle().getText("remitosViewTitle"),
             icon: "sap-icon://table-view",
-            intent: "#Remitos-display",
+            intent: `#Remitos-${oController._isAdmin() ? "admin" : "display"}`,
           },
           true
         );
@@ -101,9 +102,8 @@ sap.ui.define(
        * (NOT before the first rendering! onInit() is used for that one!).
        * @memberOf com.profertil.view.Remitos
        */
-      //	onBeforeRendering: function() {
-      //
-      //	},
+      // onBeforeRendering: function () {
+      // },
 
       /**
        * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
@@ -280,6 +280,14 @@ sap.ui.define(
           );
           mBindingParams.filters.push(negocioFilter);
         }
+
+        //Kunag Custom Filter
+        oInput = oSmtFilter.getControlByKey("Kunag");
+        var sKunag = oInput.getValue();
+        if (sAcNegocio && oController._isAdmin()) {
+          var kunagFilter = new Filter("Kunag", FilterOperator.EQ, sKunag);
+          mBindingParams.filters.push(kunagFilter);
+        }
       },
 
       /* =========================================================== */
@@ -348,8 +356,8 @@ sap.ui.define(
 
         // if no window show warning message
         /* if (oAttachment == null) {
-          MessageBox.warning(oController.readFromI18n("noFileErrorMSG"));
-        } */
+            MessageBox.warning(oController.readFromI18n("noFileErrorMSG"));
+          } */
       },
 
       /**
@@ -383,6 +391,19 @@ sap.ui.define(
         return new Date(
           dToday.getTime() - iDays * iHours * iMinutes * iSeconds * iMiliSeconds
         );
+      },
+
+      /**
+       * Determines if app is in admin mode.
+       *
+       * Obtains url and checks that is not normal display.
+       *
+       * @function
+       * @private
+       * @returns {boolean} if current action is not display
+       */
+      _isAdmin: function () {
+        return !window.location.href.includes("-display");
       },
 
       /**
@@ -460,7 +481,7 @@ sap.ui.define(
           // Current Group
           var sGroupValue = sProperty.includes("Fecha")
               ? new Date(oGroupHeader.getTitle()).toLocaleDateString()
-              : oGroupHeader.getTitle(),
+              : oController.formatter.removeLabel(oGroupHeader.getTitle()),
             // Entities in current group
             aGroupEntities = aEntities.filter(
               (oEntity) => oEntity[sProperty] === sGroupValue
