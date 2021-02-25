@@ -8,7 +8,7 @@
     <sortItems>
       <ViewSettingsItem id="entregaOption" text="{/#Remitos/Entrega/@sap:label}" key="Entrega" />
       <ViewSettingsItem id="werksOption" text="{/#Remitos/Werks/@sap:label}" key="Werks" />
-      <ViewSettingsItem id="acNegocioOption" text="{/#Remitos/AcNegocio/@sap:label}" key="AcNegocio" />
+      <ViewSettingsItem id="acNegocioOption" text="{/#Remitos/Arktx/@sap:label}" key="Arktx" />
       <ViewSettingsItem id="bzirkOption" text="{/#Remitos/Bzirk/@sap:label}" key="Bzirk" />
       <ViewSettingsItem id="choferOption" text="{/#Remitos/Chofer/@sap:label}" key="Chofer" />
     </sortItems>

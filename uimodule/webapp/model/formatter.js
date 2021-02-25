@@ -1,3 +1,13 @@
+/**
+ * Formatter.
+ *
+ * Formatting functions.
+ *
+ * @file This files describes the view's formatter.
+ * @author Tomas A. Sanchez
+ * @since 02.23.2021
+ */
+/* eslint-disable no-warning-comments */
 sap.ui.define([], function () {
   "use strict";
   return {
@@ -34,6 +44,18 @@ sap.ui.define([], function () {
      * @returns {string} the formatted number
      */
     toLocaleNumber: Intl.NumberFormat().format,
+
+    /**
+     * Translates to Mandatory Type
+     * @function
+     * @param {boolean} bMandatory the required value
+     * @return {sap.ui.comp.smartfilterbar.MandatoryType} the mandatory type state
+     */
+    toMandatory: (bMandatory = false) => {
+      return bMandatory
+        ? sap.ui.comp.smartfilterbar.MandatoryType.mandatory
+        : sap.ui.comp.smartfilterbar.MandatoryType.auto;
+    },
 
     /**
      * Capitalizes each letter after blank space in a string
