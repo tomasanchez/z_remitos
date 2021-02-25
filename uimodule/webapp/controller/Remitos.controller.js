@@ -68,6 +68,7 @@ sap.ui.define(
           dLastWeek: oController._getLastWeek(),
           tableBusyDelay: 0,
           isAdmin: oController._isAdmin(),
+          total: 0,
         });
         this.setModel(oViewModel, "remitosView");
 
@@ -445,6 +446,10 @@ sap.ui.define(
 
         // The current sort property that bindings are ordered by.
         var sProperty = oController._getSortProperty(oTable);
+
+        // Count total
+        oController._adjustTotalCounter(aEntities);
+
         // Set titles for all headers
         if (aGroupHeaders.length > 0)
           oController._adjustGroupHeaders(aGroupHeaders, aEntities, sProperty);
@@ -467,6 +472,7 @@ sap.ui.define(
           : undefined;
       },
 
+
       /**
        * Convenience method for setting Group Header Titles.
        *
@@ -479,26 +485,49 @@ sap.ui.define(
       _adjustGroupHeaders: function (aGroupHeaders, aEntities = [], sProperty) {
         aGroupHeaders.forEach((oGroupHeader) => {
           // Current Group
-          var sGroupValue = sProperty.includes("Fecha")
-              ? new Date(oGroupHeader.getTitle()).toLocaleDateString()
-              : oController.formatter.removeLabel(oGroupHeader.getTitle()),
+          var sGroupValue = oController._obtainGroupValue(oGroupHeader),
             // Entities in current group
             aGroupEntities = aEntities.filter(
               (oEntity) => oEntity[sProperty] === sGroupValue
             );
 
-          // The Access Property from where obtain values
-          var sAccessProp = "Lfimg",
-            // The total value
-            iTotal = oController.formatter.sumList(aGroupEntities, sAccessProp);
+          var iSubTotal = oController._getTotalTns(aGroupEntities);
 
           oGroupHeader.setTitle(
-            `${sGroupValue} - Total: ${oController.formatter.toLocaleNumber(
-              iTotal
+            `${sGroupValue} - Subtotal: ${oController.formatter.toLocaleNumber(
+              iSubTotal
             )} tns`
           );
         });
       },
+
+      /**
+       * Obtains Group Property Value
+       *
+       * @function
+       * @private
+       * @param {sap.m.GroupHeaderListItem} oGroupHeader the group header item
+       * @returns {string} the title value
+       */
+      _obtainGroupValue: function (oGroupHeader) {
+        var sTitle = oGroupHeader.getTitle(),
+          iIndex = sTitle.indexOf("-"),
+          sValue = iIndex > 0 ? sTitle.substr(0, iIndex) : sTitle;
+        return oController.formatter.removeLabel(sValue);
+      },
+
+      /**
+       * @function
+       * @private
+       * @param {array} aEntities the object entities of Remitos
+       * @return {number}
+       */
+      _getTotalTns: function (aEntities = []) {
+        return oController.formatter.sumList(aEntities, "Lfimg");
+      },
+      /* =========================================================== */
+      /* End of Internal Methods                                     */
+      /* =========================================================== */
     });
   }
 );
