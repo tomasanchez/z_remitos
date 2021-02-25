@@ -472,6 +472,19 @@ sap.ui.define(
           : undefined;
       },
 
+      /**
+       *  Sets total counter.
+       *
+       *  Obtains total tns and sets its property in view model.
+       * @function
+       * @private
+       * @param {*} aEntities
+       */
+      _adjustTotalCounter: function (aEntities) {
+        var iTns = oController._getTotalTns(aEntities),
+          oViewModel = oController.getModel("remitosView");
+        oViewModel.setProperty("/total", iTns);
+      },
 
       /**
        * Convenience method for setting Group Header Titles.

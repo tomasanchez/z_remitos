@@ -23,11 +23,21 @@
 		</semantic:titleHeading>
 		<!-- TitleExpanded content-->
 		<semantic:titleSnappedContent>
-			<Text id="snappedTitleText" text="{i18n>remitosSubTitle}"/>
+      <HBox id="snappedContent" class="sapUiResponsiveContentPadding">
+        <items>
+          <Text id="snappedSubTitle" text="{i18n>remitosSubTitle}" class="sapUiMediumMarginEnd"/>
+          <ObjectNumber id="snappedNumber" number="{remitosView>/total}" unit="TNs" state="Warning"/>
+        </items>
+      </HBox>
 		</semantic:titleSnappedContent>
 		<!-- TitleSnapped content-->
 		<semantic:titleExpandedContent>
-			<Text id="snappedTitle" text="{i18n>remitosSubTitle}"/>
+			<HBox id="expContent" class="sapUiResponsiveContentPadding">
+        <items>
+          <Text id="expSubTitle" text="{i18n>remitosSubTitle}" class="sapUiMediumMarginEnd"/>
+          <ObjectNumber id="expNumber" number="{remitosView>/total}" unit="TNs" state="Warning"/>
+        </items>
+      </HBox>
 		</semantic:titleExpandedContent>
 		<!-- Header Content -->
 		<semantic:headerContent>
@@ -46,9 +56,9 @@
         <!-- Controls -->
         <smartFilterBar:controlConfiguration>
           <!-- Kunang Control -->
-          <smartFilterBar:ControlConfiguration id="kunagCtrl" key="Kunag" index="0" label="{i18n>kunagInLabel}" groupId="_BASIC" width="300px"  visible="{remitosView>/isAdmin}" visibleInAdvancedArea="{remitosView>/isAdmin}"> 
+          <smartFilterBar:ControlConfiguration id="kunagCtrl" key="Kunag" index="0" label="{i18n>kunagInLabel}" groupId="_BASIC" width="300px" mandatory="{path:'remitosView>/isAdmin', formatter: '.formatter.toMandatory'}" visible="{remitosView>/isAdmin}" visibleInAdvancedArea="{remitosView>/isAdmin}"> 
             <smartFilterBar:customControl>
-              <Input id="kunagInput" type="Number" placeholder="{i18n>kunagPh}" maxLength="10" enabled="{remitosView>/isAdmin}" />
+              <Input id="kunagInput" type="Number" placeholder="{i18n>kunagPh}" maxLength="10" enabled="{remitosView>/isAdmin}"  valueStateText="Ingrese un número de cliente"/>
             </smartFilterBar:customControl>
           </smartFilterBar:ControlConfiguration>
           <!-- Date Control -->
@@ -212,10 +222,13 @@
 		</semantic:content>
     <!-- Semantic Footer Buttons -->
 		<semantic:footerMainAction>
+      <!-- Enable select button -->
 			<semantic:FooterMainAction id="selectDownloadsAction" text="{i18n>selectDownload}" press=".onSelectDownloads" tooltip="{}" visible="{remitosView>/showSelectDownloads}"/>
 		</semantic:footerMainAction>
 		<semantic:footerCustomActions>
+      <!-- Download Button -->
       <Button id="downloadAction" icon="sap-icon://download" press=".onDownload" text="Descargar" type="Emphasized" tooltip="{i18n>downloadButton}" visible="{remitosView>/showDownload}"/>
+      <!-- Cancel Button -->
 			<Button id="cancelAction"  icon="sap-icon://decline" press=".onCancelDownloads" text="Cancelar" type="Reject" tooltip="{i18n>cancelDownloadButton}" visible="{remitosView>/showDownload}"/>
 		</semantic:footerCustomActions>
 	</semantic:SemanticPage>
