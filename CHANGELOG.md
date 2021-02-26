@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/tomasanchez/z_remitos/compare/v0.0.9...v0.0.10) (2021-02-26)
+
+
+### Features
+
+* add comercial mode ([8235fa8](https://github.com/tomasanchez/z_remitos/commit/8235fa829167dbc018648634390786bbcf0a2c47))
+* add total counter ([0c05a22](https://github.com/tomasanchez/z_remitos/commit/0c05a2224d706d0dd474456b39f8b1b9559bc3a6))
+* comercial highlights ([8330762](https://github.com/tomasanchez/z_remitos/commit/8330762b67606eae4f30ac0606a468c697554c73))
+
+
+### Bug Fixes
+
+* **group title:** display correct title ([b1bdfeb](https://github.com/tomasanchez/z_remitos/commit/b1bdfeba571b66091b2b4de8d92f80912cfc756f))
+
 ### [0.0.9](https://github.com/tomasanchez/z_remitos/compare/v0.0.8...v0.0.9) (2021-02-24)
 
 
