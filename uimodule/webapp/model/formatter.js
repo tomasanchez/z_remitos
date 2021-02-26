@@ -38,6 +38,17 @@ sap.ui.define([], function () {
     },
 
     /**
+     * Traffic Highlights for Remitos.
+     * @function
+     * @param {date} dDate the Gueen date
+     * @param {boolean} bComercial if is comercial entry
+     * @return {string} The value state
+     */
+    dateHighlights: (dDate, bComercial = false) => {
+      return bComercial ? "Error" : "None";
+    },
+
+    /**
      * Number Format shortcut
      * @function
      * @param {number} n the number to be formatted

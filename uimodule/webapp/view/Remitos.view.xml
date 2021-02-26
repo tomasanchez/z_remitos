@@ -23,21 +23,21 @@
 		</semantic:titleHeading>
 		<!-- TitleExpanded content-->
 		<semantic:titleSnappedContent>
-      <HBox id="snappedContent" class="sapUiResponsiveContentPadding">
+      <VBox id="snappedContent" class="sapUiResponsiveContentPadding">
         <items>
-          <Text id="snappedSubTitle" text="{i18n>remitosSubTitle}" class="sapUiMediumMarginEnd"/>
-          <ObjectNumber id="snappedNumber" number="{remitosView>/total}" unit="TNs" state="Warning"/>
+          <Text id="snappedSubTitle" text="{i18n>remitosSubTitle}" class="sapUiTinyMarginTopBottom"/>
+          <ObjectNumber id="snappedNumber" inverted="true" number="{remitosView>/total}" unit="TNs" state="Warning"/>
         </items>
-      </HBox>
+      </VBox>
 		</semantic:titleSnappedContent>
 		<!-- TitleSnapped content-->
 		<semantic:titleExpandedContent>
-			<HBox id="expContent" class="sapUiResponsiveContentPadding">
+			<VBox id="expContent" class="sapUiResponsiveContentPadding">
         <items>
-          <Text id="expSubTitle" text="{i18n>remitosSubTitle}" class="sapUiMediumMarginEnd"/>
-          <ObjectNumber id="expNumber" number="{remitosView>/total}" unit="TNs" state="Warning"/>
+          <Text id="expSubTitle" text="{i18n>remitosSubTitle}" class="sapUiTinyMarginTopBottom"/>
+          <ObjectNumber id="expNumber" inverted="true" number="{remitosView>/total}" unit="TNs" state="Warning"/>
         </items>
-      </HBox>
+      </VBox>
 		</semantic:titleExpandedContent>
 		<!-- Header Content -->
 		<semantic:headerContent>
@@ -46,7 +46,7 @@
         id="filterbar" 
         persistencyKey="UniqueAndStablePersistencyKey" 
         considerSelectionVariants="true" 
-        entitySet="RemitosSet"
+        entitySet="ComercialSet"
         useDateRangeType="true" 
         deltaVariantMode="false" 
         showFilterConfiguration="false" 
@@ -94,7 +94,7 @@
         <sap.ui.comp.smarttable:SmartTable 
           xmlns:sap.ui.comp.smarttable="sap.ui.comp.smarttable"
           persistencyKey="SmartTable" 
-          entitySet="RemitosSet" 
+          entitySet="ComercialSet" 
           width="100%" 
           direction="Column" 
           showRowCount="true"
@@ -165,7 +165,7 @@
                     key="p13nData" 
                     value='\{"columnKey": "Gueen", "maxLength": "10","columnIndex":"4", "isCurrency": false, "leadingProperty": "Gueen", "sortProperty": "Gueen", "type": "date"}' />
                 </customData>
-                <Label id="header-Gueen-label" text="{/#Remitos/Gueen/@sap:label}"/>
+                <Label id="header-Gueen-label" text="{/#Remitos/Gueen/@sap:label}" wrapping="true"/>
               </Column>
               <!-- Custom Entrega Column -->
               <Column id="EntregaCol" width="auto" hAlign="Center">
@@ -176,14 +176,14 @@
                 </customData>
                 <Label id="header-entrega-label" text="{/#Remitos/Entrega/@sap:label}" tooltip="{i18n>entregaTooltip}"/>
               </Column>
-              <!-- Custom Entrega Column -->
+              <!-- Custom Certificado Column -->
               <Column id="CertificadoCol" width="auto" hAlign="Center">
                 <customData>
                   <core:CustomData
                     key="p13nData"
                     value='\{"columnKey": "Certificado", "maxLength": "10","columnIndex":"10", "isCurrency": false, "leadingProperty": "Certificado", "sortProperty": "Certificado", "type": "string"}' />
                 </customData>
-                <Label id="header-certificado-label" text="{/#Remitos/Certificado/@sap:label}" tooltip="{i18n>certificadoTooltip}"/>
+                <Label id="header-certificado-label" text="{/#Remitos/Certificado/@sap:label}" wrapping="true" tooltip="{i18n>certificadoTooltip}"/>
               </Column>
               <!-- Custom Bzirk -->
               <Column id="Bzirk" width="auto" hAlign="Center">
@@ -197,7 +197,7 @@
             </columns>
             <items>
             <!-- Custom Data Cells -->
-              <ColumnListItem id="customDataColumnList">
+              <ColumnListItem id="customDataColumnList" highlight="{path:'Gueen', formatter:'.formatter.dateHighlights'}">
                 <cells>
                   <!-- Formatted Date = 'dd/mm/yyyy' -->
                   <Text id="Fecha-field" text="{path:'Fecha', formatter: '.formatter.dateFormat'}"/>
