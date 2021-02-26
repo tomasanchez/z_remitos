@@ -68,6 +68,8 @@ sap.ui.define(
           dLastWeek: oController._getLastWeek(),
           tableBusyDelay: 0,
           isAdmin: oController._isAdmin(),
+          isComercial: oController._isComercial(),
+          entitySet: oController._getEntitySetName(),
           total: 0,
         });
         this.setModel(oViewModel, "remitosView");
@@ -274,20 +276,30 @@ sap.ui.define(
         var oInput = oSmtFilter.getControlByKey("AcNegocio"),
           sAcNegocio = oInput.getValue();
         if (sAcNegocio) {
-          var negocioFilter = new Filter(
+          var oNegocioFilter = new Filter(
             "AcNegocio",
             FilterOperator.EQ,
             sAcNegocio
           );
-          mBindingParams.filters.push(negocioFilter);
+          mBindingParams.filters.push(oNegocioFilter);
         }
 
         //Kunag Custom Filter
         oInput = oSmtFilter.getControlByKey("Kunag");
         var sKunag = oInput.getValue();
         if (sAcNegocio && oController._isAdmin()) {
-          var kunagFilter = new Filter("Kunag", FilterOperator.EQ, sKunag);
-          mBindingParams.filters.push(kunagFilter);
+          var oKunagFilter = new Filter("Kunag", FilterOperator.EQ, sKunag);
+          mBindingParams.filters.push(oKunagFilter);
+        }
+
+        //Only in comercial filters
+        if (oController._isComercial()) {
+          oInput = oSmtFilter.getControlByKey("Matnr");
+          var sMatnr = oSmtFilter.getValue();
+          if (sMatnr && oController._isAdmin()) {
+            var oMatnrFilter = new Filter("Matnr", FilterOperator.BT, sMatnr);
+            mBindingParams.filters.push(oMatnrFilter);
+          }
         }
       },
 
@@ -395,6 +407,19 @@ sap.ui.define(
       },
 
       /**
+       * Gets Set Name.
+       *
+       * When comercial retrieves ComercialSet, when not RemitosSet.
+       *
+       * @function
+       * @private
+       * @return {string} the entity set name.
+       */
+      _getEntitySetName: function () {
+        return oController._isComercial() ? "ComercialSet" : "RemitosSet";
+      },
+
+      /**
        * Determines if app is in admin mode.
        *
        * Obtains url and checks that is not normal display.
@@ -405,6 +430,19 @@ sap.ui.define(
        */
       _isAdmin: function () {
         return !window.location.href.includes("-display");
+      },
+
+      /**
+       * Determines if app is in Comercial mode.
+       *
+       * Obtains url and checks if display is comercial.
+       *
+       * @function
+       * @private
+       * @returns {boolean} if current action is comercial
+       */
+      _isComercial: function () {
+        return window.location.href.includes("-comercial");
       },
 
       /**
