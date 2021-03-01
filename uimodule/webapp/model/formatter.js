@@ -114,6 +114,21 @@ sap.ui.define([], function () {
     },
 
     /**
+     * Bzirk formatting text.
+     *
+     * Shows/Hide bzirk name depending on comercial mode.
+     *
+     * @public
+     * @param {string} sBzirk the bzirk number
+     * @param {string} sBzrikText the bzrik name
+     * @param {boolean} bComercial if is comercial mode
+     * @return {string} the formatted Bzirk cell field text
+     */
+    bzirkText: (sBzirk, sBzrikText, bComercial = false) => {
+      return bComercial ? sBzirk : `${sBzrikText} (${sBzrik})`;
+    },
+
+    /**
      * Convenince method for summing an array
      * @public
      * @param {array} aList the array of objects to be reduced in sum
