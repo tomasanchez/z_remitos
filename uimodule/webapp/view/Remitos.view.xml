@@ -182,7 +182,7 @@
                 <Label id="header-entrega-label" text="{/#Remitos/Entrega/@sap:label}" tooltip="{i18n>entregaTooltip}"/>
               </Column>
               <!-- Custom Certificado Column -->
-              <Column id="CertificadoCol" width="auto" hAlign="Center">
+              <Column id="CertificadoCol" width="auto" hAlign="Center" visible="{remitosView>/notInComercial}">
                 <customData>
                   <core:CustomData
                     key="p13nData"
@@ -191,7 +191,7 @@
                 <Label id="header-certificado-label" text="{/#Remitos/Certificado/@sap:label}" wrapping="true" tooltip="{i18n>certificadoTooltip}"/>
               </Column>
               <!-- Custom Bzirk -->
-              <Column id="Bzirk" width="auto" hAlign="Center">
+              <Column id="Bzirk" width="auto" hAlign="Center" visible="{remitosView>/notInComercial}">
                 <customData>
                   <core:CustomData 
                     key="p13nData" 
@@ -202,12 +202,13 @@
             </columns>
             <items>
             <!-- Custom Data Cells -->
-              <ColumnListItem id="customDataColumnList" highlight="{path:'Gueen', formatter:'.formatter.dateHighlights'}">
+              <ColumnListItem id="customDataColumnList"
+                highlight="{ parts: [{path:'Gueen'}, {path:'remitosView>/isComercial'}], formatter:'.formatter.dateHighlights'}">
                 <cells>
                   <!-- Formatted Date = 'dd/mm/yyyy' -->
                   <Text id="Fecha-field" text="{path:'Fecha', formatter: '.formatter.dateFormat'}"/>
                   <!-- Custom Werks -->
-                  <ObjectIdentifier id="Werks-field" title="{Werks}" text="{path: 'WerksName1', formatter:'.formatter.formatTitle'}"/>
+                  <ObjectIdentifier id="Werks-field" title="{Werks}"/>
                   <!-- Hyperlink to Cross-Application Xblnr -->
                   <ObjectStatus state="Information" id="Xblnr-field"  icon="sap-icon://pdf-attachment" text="{path:'Xblnr', formatter:'.formatter.deleteLeadingZeros'}" active="true" press=".onDisplayXlbnr" tooltip="{i18n>displayXblnr} {Xblnr}"/>
                   <!-- Formatted Gueen = 'dd/mm/yyyy' -->
@@ -217,7 +218,7 @@
                   <!-- TODO: QAS of Remito Navigation -->
                   <ObjectStatus state="Information" id="Certificado-field" icon="sap-icon://measure" text="{Certificado}"  active="true" press=".onDisplayCertificado" tooltip="{i18n>displayCertificado} {Xblnr}"/>
                   <!-- Custom Bzirk -->
-                  <Text id="Bzirk-field" text="{Bztxt} ({Bzirk})"/>
+                  <Text id="Bzirk-field" text="{parts: [{path: 'Bzirk'}, {path: 'Bztxt'}, {path: 'remitosView>/isComercial'}], formatter: '.formatter.bzirkText'}"/>
                 </cells>
               </ColumnListItem>
             </items> 
