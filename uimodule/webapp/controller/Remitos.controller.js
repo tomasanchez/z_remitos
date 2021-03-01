@@ -429,7 +429,7 @@ sap.ui.define(
        * @returns {boolean} if current action is not display
        */
       _isAdmin: function () {
-        return !window.location.href.includes("-display");
+        return window.location.href.toLowerCase().includes("-admin");
       },
 
       /**
@@ -442,7 +442,7 @@ sap.ui.define(
        * @returns {boolean} if current action is comercial
        */
       _isComercial: function () {
-        return window.location.href.includes("-comercial");
+        return window.location.href.toLowerCase().includes("-comercial");
       },
 
       /**
