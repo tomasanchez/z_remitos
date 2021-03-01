@@ -69,6 +69,8 @@ sap.ui.define(
           tableBusyDelay: 0,
           isAdmin: oController._isAdmin(),
           isComercial: oController._isComercial(),
+          notInComercial: !oController._isComercial(),
+          ignoreFieldsFromPerso: oController._getIgnoreFields(),
           entitySet: oController._getEntitySetName(),
           total: 0,
         });
@@ -295,7 +297,7 @@ sap.ui.define(
         //Only in comercial filters
         if (oController._isComercial()) {
           oInput = oSmtFilter.getControlByKey("Matnr");
-          var sMatnr = oSmtFilter.getValue();
+          var sMatnr = oInput.getValue();
           if (sMatnr && oController._isAdmin()) {
             var oMatnrFilter = new Filter("Matnr", FilterOperator.BT, sMatnr);
             mBindingParams.filters.push(oMatnrFilter);
@@ -390,11 +392,10 @@ sap.ui.define(
        * Convenience method for creating a date from last week
        * @function
        * @private
+       * @param {date} dCurrentDate the current date from where to obtain last week
        * @return {Date} the last week date
        */
-      _getLastWeek: () => {
-        var dToday = new Date();
-
+      _getLastWeek: (dCurrentDate = new Date()) => {
         const iDays = 7,
           iHours = 24,
           iMinutes = 60,
@@ -402,8 +403,9 @@ sap.ui.define(
           iMiliSeconds = 1000;
 
         return new Date(
-          dToday.getTime() - iDays * iHours * iMinutes * iSeconds * iMiliSeconds
-        );
+          dCurrentDate.getTime() -
+            iDays * iHours * iMinutes * iSeconds * iMiliSeconds
+        ).setHours(0, 0, 0, 0);
       },
 
       /**
@@ -417,6 +419,21 @@ sap.ui.define(
        */
       _getEntitySetName: function () {
         return oController._isComercial() ? "ComercialSet" : "RemitosSet";
+      },
+
+      /**
+       * Gets ignore fields from personification.
+       *
+       * Changes ignore fields according to if it is comercial or not.
+       *
+       * @function
+       * @private
+       * @return {string} the ignore fields concatenated by ','
+       */
+      _getIgnoreFields: function () {
+        var sDefault = "WerksName1,Bztxt,Posnr",
+          sComercial = "Bzirk,Certificado";
+        return oController._isComercial() ? sDefault + sComercial : sDefault;
       },
 
       /**
@@ -516,7 +533,7 @@ sap.ui.define(
        *  Obtains total tns and sets its property in view model.
        * @function
        * @private
-       * @param {*} aEntities
+       * @param {array} aEntities the array of conext's objects
        */
       _adjustTotalCounter: function (aEntities) {
         var iTns = oController._getTotalTns(aEntities),
@@ -542,7 +559,7 @@ sap.ui.define(
               (oEntity) => oEntity[sProperty] === sGroupValue
             );
 
-          var iSubTotal = oController._getTotalTns(aGroupEntities);
+          var iSubTotal = oController._getTotalTns(aGroupEntities).toFixed(2);
 
           oGroupHeader.setTitle(
             `${sGroupValue} - Subtotal: ${oController.formatter.toLocaleNumber(
