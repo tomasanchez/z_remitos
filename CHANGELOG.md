@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.11](https://github.com/tomasanchez/z_remitos/compare/v0.0.10...v0.0.11) (2021-03-02)
+
+
+### Bug Fixes
+
+* correct view mode ([5b1b184](https://github.com/tomasanchez/z_remitos/commit/5b1b1842f987b9667bfffd42eb7778f59b62790a))
+* total TNs decimal ([0c69c6c](https://github.com/tomasanchez/z_remitos/commit/0c69c6c430eeec8d2329512ecb6aee17d72f4fb8))
+
 ### [0.0.10](https://github.com/tomasanchez/z_remitos/compare/v0.0.9...v0.0.10) (2021-02-26)
 
 
