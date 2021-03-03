@@ -432,7 +432,7 @@ sap.ui.define(
        */
       _getIgnoreFields: function () {
         var sDefault = "WerksName1,Bztxt,Posnr",
-          sComercial = "Bzirk,Certificado";
+          sComercial = ",Bzirk,Certificado";
         return oController._isComercial() ? sDefault + sComercial : sDefault;
       },
 
