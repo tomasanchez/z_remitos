@@ -110,12 +110,12 @@
           id="RemitosSet"
           smartFilterId="filterbar"
           demandPopin="true"
-          ignoreFromPersonalisation="WerksName1,Bztxt,Posnr"
+          ignoreFromPersonalisation="{remitosView>/ignoreFieldsFromPerso}"
           showFullScreenButton="true"
           beforeRebindTable="onBeforeRebindTable"
           useVariantManagement="true"
           showVariantManagement="true"
-          initiallyVisibleFields="Fecha,Xblnr,Werks,AcNegocio,Entrega,Arktx,Kdmat,,Netpr,Lfimg,Chofer,Dni,Patentes" 
+          initiallyVisibleFields="Fecha,Xblnr,Werks,AcNegocio,Entrega,Arktx,Kdmat,Netpr,Lfimg,Chofer,Dni,Patentes" 
           justifyContent="Center"
           class="sapUiResponsiveContentPadding"
           alignContent="Center">
@@ -170,7 +170,7 @@
                     key="p13nData" 
                     value='\{"columnKey": "Gueen", "maxLength": "10","columnIndex":"4", "isCurrency": false, "leadingProperty": "Gueen", "sortProperty": "Gueen", "type": "date"}' />
                 </customData>
-                <Label id="header-Gueen-label" text="{/#Remitos/Gueen/@sap:label}" wrapping="true"/>
+                <Label id="header-Gueen-label" text="{/#Comercial/Gueen/@sap:label}" wrapping="true"/>
               </Column>
               <!-- Custom Entrega Column -->
               <Column id="EntregaCol" width="auto" hAlign="Center">
@@ -218,7 +218,7 @@
                   <!-- TODO: QAS of Remito Navigation -->
                   <ObjectStatus state="Information" id="Certificado-field" icon="sap-icon://measure" text="{Certificado}"  active="true" press=".onDisplayCertificado" tooltip="{i18n>displayCertificado} {Xblnr}"/>
                   <!-- Custom Bzirk -->
-                  <Text id="Bzirk-field" text="{parts: [{path: 'Bzirk'}, {path: 'Bztxt'}, {path: 'remitosView>/isComercial'}], formatter: '.formatter.bzirkText'}"/>
+                  <Text id="Bzirk-field" text="{Bztxt} ({Bzirk})"/>
                 </cells>
               </ColumnListItem>
             </items> 
