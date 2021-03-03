@@ -39,13 +39,32 @@ sap.ui.define([], function () {
 
     /**
      * Traffic Highlights for Remitos.
+     *
+     * Determines if the expiration date is between a week.
      * @function
      * @param {date} dDate the Gueen date
      * @param {boolean} bComercial if is comercial entry
      * @return {string} The value state
      */
     dateHighlights: (dDate, bComercial = false) => {
-      return bComercial ? "Error" : "None";
+      var sValueState = "None";
+
+      if (bComercial) {
+        var dToday = new Date();
+
+        const iDays = 7,
+          iHours = 24,
+          iMinutes = 60,
+          iSeconds = 60,
+          iMiliSeconds = 1000;
+
+        var dExpirationDate = new Date(
+          dDate.getTime() - iDays * iHours * iMinutes * iSeconds * iMiliSeconds
+        );
+
+        sValueState = dToday <= dExpirationDate ? "Error" : "None";
+      }
+      return sValueState;
     },
 
     /**
@@ -111,21 +130,6 @@ sap.ui.define([], function () {
      */
     deleteLeadingZeros: (str) => {
       return str ? str.replace(/^0+/, "") : "0";
-    },
-
-    /**
-     * Bzirk formatting text.
-     *
-     * Shows/Hide bzirk name depending on comercial mode.
-     *
-     * @public
-     * @param {string} sBzirk the bzirk number
-     * @param {string} sBzrikText the bzrik name
-     * @param {boolean} bComercial if is comercial mode
-     * @return {string} the formatted Bzirk cell field text
-     */
-    bzirkText: (sBzirk, sBzrikText, bComercial = false) => {
-      return bComercial ? sBzirk : `${sBzrikText} (${sBzrik})`;
     },
 
     /**
