@@ -5,7 +5,7 @@
     "authenticationType": "none",
     "csrfProtection": false,
     "source": "^/sap/opu/odata/sap/(.*)",
-    "destination": "DesarrolloCF"
+    "destination": "BACKEND_SAP"
     },
     {
       "source": "^(.*)",

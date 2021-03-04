@@ -20,6 +20,26 @@
       },
       "envFile": "${workspaceFolder}/uimodule/.env4",
       "preLaunchTask": "Build com.profertil.Remitos"
+    },
+    {
+      "name": "Run Backend",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comprofertilRemitos/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/uimodule",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/com.profertil.Remitos/uimodule\"}"
+      },
+      "envFile": "${workspaceFolder}/uimodule/.env6",
+      "preLaunchTask": "Build com.profertil.Remitos"
     }
   ]
 }
