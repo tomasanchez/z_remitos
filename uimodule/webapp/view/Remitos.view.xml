@@ -181,6 +181,24 @@
                 </customData>
                 <Label id="header-entrega-label" text="{/#Remitos/Entrega/@sap:label}" tooltip="{i18n>entregaTooltip}"/>
               </Column>
+              <!-- Custom Netpr Column -->
+              <Column id="NetprCol" width="75px" hAlign="End">
+                <customData>
+                  <core:CustomData
+                    key="p13nData"
+                    value='\{"columnKey": "Netpr", "maxLength": "10","columnIndex":"8", "isCurrency": false, "leadingProperty": "Netpr", "sortProperty": "Netpr", "type": "float"}' />
+                </customData>
+                <Label id="header-netpr-label" text="{/#Remitos/Netpr/@sap:label}" wrapping="true"/>
+              </Column>
+              <!-- Custom Lfimg Column -->
+              <Column id="LfimgCol" width="75px" hAlign="Begin">
+                <customData>
+                  <core:CustomData
+                    key="p13nData"
+                    value='\{"columnKey": "Lfimg", "maxLength": "10","columnIndex":"9", "isCurrency": false, "leadingProperty": "Lfimg", "sortProperty": "Lfimg", "type": "float"}' />
+                </customData>
+                <Label id="header-lfimg-label" text="{/#Remitos/Lfimg/@sap:label}" wrapping="true"/>
+              </Column>
               <!-- Custom Certificado Column -->
               <Column id="CertificadoCol" width="auto" hAlign="Center" visible="{remitosView>/notInComercial}">
                 <customData>
@@ -215,6 +233,10 @@
                   <Text id="Gueen-field" text="{path:'Gueen', formatter: '.formatter.dateFormat'}"/>
                   <!-- Hyperlink to Cross-Application Entrega -->
                   <ObjectStatus state="Information" id="Entrega-field" icon="sap-icon://detail-view" text="{Entrega}"  active="true" press=".onDisplayEntrega" tooltip="{i18n>displayEntrega} {Entrega}"/>
+                  <!-- Formatted Netprf -->
+                  <ObjectNumber id="Netpr-field" number="{path:'Netpr', formatter:'.formatter.toNumber'}"/>
+                  <!-- Formatted Lfimg -->
+                  <ObjectNumber id="Lfimg-field" number="{path:'Lfimg', formatter:'.formatter.toNumber'}"/>
                   <!-- TODO: QAS of Remito Navigation -->
                   <ObjectStatus state="Information" id="Certificado-field" icon="sap-icon://measure" text="{Certificado}"  active="true" press=".onDisplayCertificado" tooltip="{i18n>displayCertificado} {Xblnr}"/>
                   <!-- Custom Bzirk -->

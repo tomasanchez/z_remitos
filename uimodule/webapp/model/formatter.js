@@ -75,6 +75,11 @@ sap.ui.define([], function () {
      */
     toLocaleNumber: Intl.NumberFormat().format,
 
+    toNumber: function (fValue) {
+      fValue = parseFloat(fValue);
+      return Intl.NumberFormat().format(fValue.toFixed(2));
+    },
+
     /**
      * Translates to Mandatory Type
      * @function
