@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/tomasanchez/z_remitos/compare/v0.0.11...v1.0.0) (2021-03-04)
+
+
+### Bug Fixes
+
+* columns width for numbers ([20c9538](https://github.com/tomasanchez/z_remitos/commit/20c95381300c068baa44b695b6567f0c691e7dd2))
+
 ### [0.0.11](https://github.com/tomasanchez/z_remitos/compare/v0.0.10...v0.0.11) (2021-03-02)
 
 
