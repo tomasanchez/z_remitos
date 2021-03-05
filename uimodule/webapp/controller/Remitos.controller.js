@@ -15,7 +15,7 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/m/MessageBox",
-    "sap/m/PDFViewer",
+    "sap/ui/comp/valuehelpdialog/ValueHelpDialog",
     "../model/formatter",
   ],
   function (
@@ -24,7 +24,7 @@ sap.ui.define(
     Filter,
     FilterOperator,
     MessageBox,
-    PDFViewer,
+    ValueHelpDialog,
     formatter
   ) {
     "use strict";
@@ -131,6 +131,43 @@ sap.ui.define(
       /* =========================================================== */
 
       /**
+       * Event handler called when value help is pressed.
+       *
+       * Opens corresponding mobile or desktop Value Help.
+       * @function
+       * @public
+       * @param {sap.ui.base.Event} oEvent the press event
+       */
+      onVHPKunag: function (oEvent) {
+        // oInput shortcut
+        oController._oInputKunag = oEvent.getSource();
+        oController._oValueHelpDialog = oController._createValueHelp(
+          "Clientes",
+          "Cliente",
+          "ClienteTexto",
+          oController.onKunagSelected
+        );
+        oController.getView().addDependent(oController._oValueHelpDialog);
+        oController._setVHKunagTable();
+        oController._oValueHelpDialog.open();
+      },
+
+      /**
+       * Triggered by ok in value help.
+       *
+       * Sets kunag input
+       * @param {sap.ui.base.Event} oEvent the ok value help press.
+       */
+      onKunagSelected: function (oEvent) {
+        var oToken = oEvent.getParameter("tokens")[0];
+        oController._oInputKunag.setSelectedKey(oToken.getKey());
+        oController._oInputKunag.setValue(
+          `${oToken.getText()} (${oToken.getKey()})`
+        );
+        oController._oValueHelpDialog.close();
+      },
+
+      /**
        * Triggered by Group button press.
        *
        * Opens Group View Settings Dialog.
@@ -161,7 +198,7 @@ sap.ui.define(
        * @param {boolean} bActive the active state
        * @public
        */
-      onSelectDownloads: (oEvent, bActive = true) => {
+      onSelectDownloads: (_oEvent, bActive = true) => {
         oController._toggleTableSelection(bActive);
         oController._toggleDownloadButtons(bActive);
       },
@@ -174,7 +211,7 @@ sap.ui.define(
        * @public
        */
       // eslint-disable-next-line no-unused-vars
-      onCancelDownloads: (oEvent) => {
+      onCancelDownloads: (_oEvent) => {
         oController.onSelectDownloads(null, false);
       },
 
@@ -185,7 +222,7 @@ sap.ui.define(
        * @public
        */
       // eslint-disable-next-line no-unused-vars
-      onDownload: (oEvent) => {
+      onDownload: (_oEvent) => {
         // Obtain table
         var oTable = oController.byId("smartTableCustom");
 
@@ -592,6 +629,86 @@ sap.ui.define(
        */
       _getTotalTns: function (aEntities = []) {
         return oController.formatter.sumList(aEntities, "Lfimg");
+      },
+
+      /**
+       * Creates a new ValueHelp Dialog.
+       *
+       * Returns a value help corresponding to device system.
+       *
+       * @function
+       * @private
+       * @param {string} sTitle the Value Help Title to be displayed
+       * @param {string} sKey the Input Key value.
+       * @param {string} sDescriptionKey the description text value.
+       * @param {function} onConfirm the confirm function.
+       * @return {sap.ui.comp.valuehelpdialog.ValueHelpDialog} the value help dialog
+       */
+      _createValueHelp: function (sTitle, sKey, sDescriptionKey, onConfirm) {
+        return sap.ui.Device.system.phone
+          ? new ValueHelpDialog({
+              title: sTitle,
+              supportMultiselect: false,
+              key: sKey,
+              descriptionKey: sDescriptionKey,
+              ok: onConfirm,
+              // eslint-disable-next-line no-unused-vars
+              cancel: function (oCancelEvent) {
+                oController._oValueHelpDialog.close();
+              },
+              afterClose: function () {
+                this.destroy();
+                oController._oValueHelpDialog = null;
+              },
+              // eslint-disable-next-line no-unused-vars
+              selectionChange: function (oSelecionEvent) {},
+            })
+          : new ValueHelpDialog({
+              title: sTitle,
+              supportMultiselect: false,
+              key: sKey,
+              descriptionKey: sDescriptionKey,
+              supportRanges: false,
+              supportRangesOnly: false,
+              stretch: sap.ui.Device.system.phone,
+              ok: onConfirm,
+              // eslint-disable-next-line no-unused-vars
+              cancel: function (oCancelEvent) {
+                oController._oValueHelpDialog.close();
+              },
+              afterClose: function () {
+                this.destroy();
+                oController._oValueHelpDialog = null;
+              },
+              // eslint-disable-next-line no-unused-vars
+              selectionChange: function (oSelecionEvent) {},
+            });
+      },
+
+      /**
+       * Handles Columns in value help.
+       *
+       * Set Kunag column and bind its rows to 'ClientesSet'
+       *
+       * @function
+       * @private
+       */
+      _setVHKunagTable: function () {
+        oController._oValueHelpDialog.getTableAsync().then(
+          function (oTable) {
+            var oColumn = new sap.ui.table.Column({
+              label: new Label({ text: "Cliente" }),
+              template: new sap.m.Text({
+                text: "[{Cliente}] - {ClienteTexto}",
+              }),
+            });
+            if (oTable.bindRows) {
+              oTable.addColumn(oColumn);
+              oTable.bindAggregation("rows", "/ClientesSet");
+            }
+            oController._oValueHelpDialog.update();
+          }.bind(this)
+        );
       },
       /* =========================================================== */
       /* End of Internal Methods                                     */
