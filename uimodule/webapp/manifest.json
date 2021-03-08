@@ -24,7 +24,7 @@
           "icon": "sap-icon://BusinessSuiteInAppSymbols/icon-truck-load-unload",
           "indicatorDataSource": {
             "dataSource": "",
-            "path": "dynamic_dest/DesarrolloCF/sap/opu/odata/sap/ZSV_REMITOS_SRV/RemitosSet/$count",
+            "path": "dynamic_dest/BACKEND_SAP/sap/opu/odata/sap/ZSV_REMITOS_SRV/RemitosSet/$count",
             "refresh": 1000
           }
         }
