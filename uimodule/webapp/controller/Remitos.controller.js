@@ -573,7 +573,7 @@ sap.ui.define(
        * @param {array} aEntities the array of conext's objects
        */
       _adjustTotalCounter: function (aEntities) {
-        var iTns = oController._getTotalTns(aEntities),
+        var iTns = parseFloat(oController._getTotalTns(aEntities).toFixed(2)),
           oViewModel = oController.getModel("remitosView");
         oViewModel.setProperty("/total", iTns);
       },
