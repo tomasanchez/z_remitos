@@ -62,8 +62,9 @@ sap.ui.define([], function () {
           dDate.getTime() - iDays * iHours * iMinutes * iSeconds * iMiliSeconds
         );
 
-        sValueState = dToday <= dExpirationDate ? "Error" : "None";
+        sValueState = dToday >= dExpirationDate ? "Error" : "None";
       }
+
       return sValueState;
     },
 
