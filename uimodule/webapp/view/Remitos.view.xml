@@ -56,9 +56,9 @@
         <smartFilterBar:controlConfiguration>
           <!-- Kunang Control -->
           <smartFilterBar:ControlConfiguration id="kunagCtrl" key="Kunag" index="0" label="{i18n>kunagInLabel}" groupId="_BASIC" width="300px" mandatory="{path:'remitosView>/isAdmin', formatter: '.formatter.toMandatory'}" visible="{remitosView>/isAdmin}" visibleInAdvancedArea="{remitosView>/isAdmin}"> 
-            <smartFilterBar:customControl>
+           <!-- <smartFilterBar:customControl>
               <Input id="kunagInput" type="Number" placeholder="{i18n>kunagPh}" maxLength="10" enabled="{remitosView>/isAdmin}"  valueStateText="Ingrese un número de cliente"/>
-            </smartFilterBar:customControl>
+            </smartFilterBar:customControl> -->
           </smartFilterBar:ControlConfiguration>
           <!-- Date Control -->
           <smartFilterBar:ControlConfiguration id="fechaCtrl" key="Fecha" index="1" label="{i18n>dateDpLabel}" groupId="_BASIC" 
