@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/tomasanchez/z_remitos/compare/v1.0.0...v1.1.0) (2021-03-08)
+
+
+### Features
+
+* add value help dialog ([f269948](https://github.com/tomasanchez/z_remitos/commit/f26994823a288a7cf5734ae5798a6a24a42c5b51))
+
+
+### Bug Fixes
+
+* **comercial:** column highlights ([a1b9e2e](https://github.com/tomasanchez/z_remitos/commit/a1b9e2ee2feb474a4c5550eef626a46dacced1b5))
+* **intent:** tile counter indicator destination ([bbee9de](https://github.com/tomasanchez/z_remitos/commit/bbee9de9d57b9cb4867fc15a767c3fb3bf15e997))
+* bind value help to odata ([ae54988](https://github.com/tomasanchez/z_remitos/commit/ae54988774e979837ecc8e607e49533c7d78ed8f))
+* tns counter to fixed ([40fd3a6](https://github.com/tomasanchez/z_remitos/commit/40fd3a6e246429bab18f7d63d2ca543b624e7f5e))
+
 ## [1.0.0](https://github.com/tomasanchez/z_remitos/compare/v0.0.11...v1.0.0) (2021-03-04)
 
 
