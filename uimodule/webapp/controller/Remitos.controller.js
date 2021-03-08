@@ -323,14 +323,6 @@ sap.ui.define(
           mBindingParams.filters.push(oNegocioFilter);
         }
 
-        //Kunag Custom Filter
-        oInput = oSmtFilter.getControlByKey("Kunag");
-        var sKunag = oInput.getValue();
-        if (sAcNegocio && oController._isAdmin()) {
-          var oKunagFilter = new Filter("Kunag", FilterOperator.EQ, sKunag);
-          mBindingParams.filters.push(oKunagFilter);
-        }
-
         //Only in comercial filters
         if (oController._isComercial()) {
           oInput = oSmtFilter.getControlByKey("Matnr");
